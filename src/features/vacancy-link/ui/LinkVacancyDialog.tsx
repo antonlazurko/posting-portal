@@ -9,6 +9,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Badge } from '@/components/ui/badge';
 import { Vacancy } from '@/shared/types/vacancy';
 
 interface LinkVacancyDialogProps {
@@ -30,7 +31,7 @@ export const LinkVacancyDialog = ({
 
   const handleOpen = (isOpen: boolean) => {
     if (isOpen && vacancy) {
-      setSelectedIds(vacancy.linkedVacancies);
+      setSelectedIds(vacancy.linkedIds || []);
     }
     onOpenChange(isOpen);
   };
@@ -65,7 +66,7 @@ export const LinkVacancyDialog = ({
             <div className="p-3 bg-muted rounded-lg">
               <p className="text-sm text-muted-foreground">Current Vacancy:</p>
               <p className="font-medium">{vacancy.title}</p>
-              <p className="text-sm text-muted-foreground">{vacancy.company}</p>
+              <p className="text-sm text-muted-foreground">{vacancy.client.name}</p>
             </div>
 
             <div>
@@ -84,18 +85,11 @@ export const LinkVacancyDialog = ({
                       />
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-sm">{v.title}</p>
-                        <p className="text-xs text-muted-foreground">{v.company} · {v.location}</p>
+                        <p className="text-xs text-muted-foreground">{v.client.name} · {v.city.name}</p>
                       </div>
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        v.status === 'open' ? 'bg-success/10 text-success' :
-                        v.status === 'closed' ? 'bg-muted text-muted-foreground' :
-                        v.status === 'paused' ? 'bg-warning/10 text-warning' :
-                        'bg-muted text-muted-foreground'
-                      }`}>
-                        {v.status === 'open' ? 'Open' :
-                         v.status === 'closed' ? 'Closed' :
-                         v.status === 'paused' ? 'Paused' : 'Draft'}
-                      </span>
+                      <Badge variant="outline" className="text-xs">
+                        {v.atsStatus.name}
+                      </Badge>
                     </label>
                   ))}
                 </div>

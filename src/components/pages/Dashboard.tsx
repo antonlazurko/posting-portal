@@ -13,11 +13,12 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 
 const initialFilters: Filters = {
   search: '',
-  status: 'all',
-  location: '',
-  salaryMin: 0,
-  salaryMax: 1000000,
-  department: '',
+  atsStatus: 'all',
+  postingStatus: 'all',
+  clientId: 'all',
+  recruiterId: 'all',
+  countryId: 'all',
+  cityId: 'all',
 };
 
 export const Dashboard = () => {
@@ -31,15 +32,16 @@ export const Dashboard = () => {
       const searchMatch =
         !filters.search ||
         vacancy.title.toLowerCase().includes(filters.search.toLowerCase()) ||
-        vacancy.company.toLowerCase().includes(filters.search.toLowerCase());
+        vacancy.client.name.toLowerCase().includes(filters.search.toLowerCase());
 
-      const statusMatch = filters.status === 'all' || vacancy.status === filters.status;
-      const locationMatch = !filters.location || vacancy.location === filters.location;
-      const departmentMatch = !filters.department || vacancy.department === filters.department;
-      const salaryMatch =
-        vacancy.salary.min >= filters.salaryMin && vacancy.salary.max <= filters.salaryMax;
+      const atsStatusMatch = filters.atsStatus === 'all' || vacancy.atsStatus.id === filters.atsStatus;
+      const postingStatusMatch = filters.postingStatus === 'all' || vacancy.postingStatus.id === filters.postingStatus;
+      const clientMatch = filters.clientId === 'all' || vacancy.client.id === filters.clientId;
+      const recruiterMatch = filters.recruiterId === 'all' || vacancy.recruiter.id === filters.recruiterId;
+      const countryMatch = filters.countryId === 'all' || vacancy.country.id === filters.countryId;
+      const cityMatch = filters.cityId === 'all' || vacancy.city.id === filters.cityId;
 
-      return searchMatch && statusMatch && locationMatch && departmentMatch && salaryMatch;
+      return searchMatch && atsStatusMatch && postingStatusMatch && clientMatch && recruiterMatch && countryMatch && cityMatch;
     });
   }, [vacancies, filters]);
 
@@ -50,7 +52,7 @@ export const Dashboard = () => {
 
   const handleLink = (vacancyId: string, linkedIds: string[]) => {
     setVacancies((prev) =>
-      prev.map((v) => (v.id === vacancyId ? { ...v, linkedVacancies: linkedIds } : v))
+      prev.map((v) => (v.id === vacancyId ? { ...v, linkedIds: linkedIds } : v))
     );
   };
 

@@ -5,7 +5,14 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { VacancyFilters as Filters } from '@/shared/types/vacancy';
-import { locations, departments } from '@/entities/vacancy';
+import {
+  mockClients,
+  mockRecruiters,
+  mockAtsStatuses,
+  mockPostingStatuses,
+  mockCountries,
+  mockCities
+} from '@/entities/vacancy';
 
 interface VacancyFiltersProps {
   filters: Filters;
@@ -16,19 +23,23 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
   const handleReset = () => {
     onFiltersChange({
       search: '',
-      status: 'all',
-      location: '',
-      salaryMin: 0,
-      salaryMax: 1000000,
-      department: '',
+      atsStatus: 'all',
+      postingStatus: 'all',
+      clientId: 'all',
+      recruiterId: 'all',
+      countryId: 'all',
+      cityId: 'all',
     });
   };
 
   const hasActiveFilters =
     filters.search ||
-    filters.status !== 'all' ||
-    filters.location ||
-    filters.department;
+    filters.atsStatus !== 'all' ||
+    filters.postingStatus !== 'all' ||
+    filters.clientId !== 'all' ||
+    filters.recruiterId !== 'all' ||
+    filters.countryId !== 'all' ||
+    filters.cityId !== 'all';
 
   return (
     <div className="bg-card border border-border rounded-xl p-5 mb-6">
@@ -48,12 +59,12 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="lg:col-span-2">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search by title or company..."
+              placeholder="Search by title..."
               value={filters.search}
               onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
               className="pl-10"
@@ -62,49 +73,91 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
         </div>
 
         <Select
-          value={filters.status}
-          onValueChange={(value: string) => onFiltersChange({ ...filters, status: value as Filters['status'] })}
+          value={filters.atsStatus}
+          onValueChange={(value: string) => onFiltersChange({ ...filters, atsStatus: value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Status" />
+            <SelectValue placeholder="ATS Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value="open">Open</SelectItem>
-            <SelectItem value="closed">Closed</SelectItem>
-            <SelectItem value="paused">Paused</SelectItem>
-            <SelectItem value="draft">Draft</SelectItem>
-          </SelectContent>
-        </Select>
-
-        <Select
-          value={filters.location || 'all'}
-          onValueChange={(value: string) => onFiltersChange({ ...filters, location: value === 'all' ? '' : value })}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Location" />
-          </SelectTrigger>
-          <SelectContent>
-            {locations.map((loc) => (
-              <SelectItem key={loc} value={loc === 'All' ? 'all' : loc}>
-                {loc}
-              </SelectItem>
+            <SelectItem value="all">All ATS Statuses</SelectItem>
+            {mockAtsStatuses.map((s) => (
+              <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
             ))}
           </SelectContent>
         </Select>
 
         <Select
-          value={filters.department || 'all'}
-          onValueChange={(value: string) => onFiltersChange({ ...filters, department: value === 'all' ? '' : value })}
+          value={filters.postingStatus}
+          onValueChange={(value: string) => onFiltersChange({ ...filters, postingStatus: value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Department" />
+            <SelectValue placeholder="Posting Status" />
           </SelectTrigger>
           <SelectContent>
-            {departments.map((dep) => (
-              <SelectItem key={dep} value={dep === 'All' ? 'all' : dep}>
-                {dep}
-              </SelectItem>
+            <SelectItem value="all">All Posting Statuses</SelectItem>
+            {mockPostingStatuses.map((s) => (
+              <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={filters.clientId}
+          onValueChange={(value: string) => onFiltersChange({ ...filters, clientId: value })}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Client" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Clients</SelectItem>
+            {mockClients.map((c) => (
+              <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={filters.recruiterId}
+          onValueChange={(value: string) => onFiltersChange({ ...filters, recruiterId: value })}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Recruiter" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Recruiters</SelectItem>
+            {mockRecruiters.map((r) => (
+              <SelectItem key={r.id} value={r.id}>{r.firstName} {r.lastName}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={filters.countryId}
+          onValueChange={(value: string) => onFiltersChange({ ...filters, countryId: value })}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Country" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Countries</SelectItem>
+            {mockCountries.map((c) => (
+              <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={filters.cityId}
+          onValueChange={(value: string) => onFiltersChange({ ...filters, cityId: value })}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="City" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Cities</SelectItem>
+            {mockCities.map((c) => (
+              <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
             ))}
           </SelectContent>
         </Select>

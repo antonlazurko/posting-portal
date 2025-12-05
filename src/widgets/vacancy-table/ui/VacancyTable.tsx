@@ -1,4 +1,4 @@
-import { Link2, Users, MoreHorizontal, Eye, Pencil, Trash2 } from 'lucide-react';
+import { Link2, MoreHorizontal, Eye, Pencil, Trash2, Calendar } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -21,7 +21,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Vacancy } from '@/shared/types/vacancy';
+import { format } from 'date-fns';
 
 interface VacancyTableProps {
   vacancies: Vacancy[];
@@ -29,26 +31,16 @@ interface VacancyTableProps {
   onLinkClick: (vacancy: Vacancy) => void;
 }
 
-const statusConfig = {
-  open: { label: 'Open', className: 'bg-success/10 text-success border-success/20' },
-  closed: { label: 'Closed', className: 'bg-muted text-muted-foreground border-muted' },
-  paused: { label: 'Paused', className: 'bg-warning/10 text-warning border-warning/20' },
-  draft: { label: 'Draft', className: 'bg-muted text-muted-foreground border-muted' },
-};
-
-const formatSalary = (min: number, max: number) => {
-  const format = (n: number) => {
-    if (n >= 1000) return `${Math.round(n / 1000)}k`;
-    return n.toString();
-  };
-  return `${format(min)} - ${format(max)} ₽`;
-};
-
 export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTableProps) => {
-  const getLinkedVacancyNames = (linkedIds: string[]) => {
+  const getLinkedVacancyNames = (linkedIds: string[] | null) => {
+    if (!linkedIds) return [];
     return linkedIds
       .map((id) => allVacancies.find((v) => v.id === id)?.title)
       .filter(Boolean);
+  };
+
+  const formatDate = (dateString: string) => {
+    return format(new Date(dateString), 'dd MMM yyyy');
   };
 
   return (
@@ -57,10 +49,10 @@ export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTa
         <TableHeader>
           <TableRow className="bg-muted/50 hover:bg-muted/50">
             <TableHead className="font-semibold">Vacancy</TableHead>
+            <TableHead className="font-semibold">ATS Info</TableHead>
+            <TableHead className="font-semibold">Posting</TableHead>
+            <TableHead className="font-semibold">Recruiter</TableHead>
             <TableHead className="font-semibold">Location</TableHead>
-            <TableHead className="font-semibold">Salary</TableHead>
-            <TableHead className="font-semibold">Status</TableHead>
-            <TableHead className="font-semibold text-center">Candidates</TableHead>
             <TableHead className="font-semibold text-center">Links</TableHead>
             <TableHead className="font-semibold w-[50px]"></TableHead>
           </TableRow>
@@ -74,30 +66,68 @@ export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTa
             </TableRow>
           ) : (
             vacancies.map((vacancy) => {
-              const linkedNames = getLinkedVacancyNames(vacancy.linkedVacancies);
-              const status = statusConfig[vacancy.status];
+              const linkedNames = getLinkedVacancyNames(vacancy.linkedIds);
 
               return (
                 <TableRow key={vacancy.id} className="group">
                   <TableCell>
-                    <div>
+                    <div className="flex flex-col gap-1">
                       <p className="font-medium text-foreground">{vacancy.title}</p>
-                      <p className="text-sm text-muted-foreground">{vacancy.company} · {vacancy.department}</p>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <span className="font-medium text-primary">{vacancy.client.name}</span>
+                        <span>•</span>
+                        <span>{vacancy.specificProject}</span>
+                      </div>
                     </div>
                   </TableCell>
-                  <TableCell className="text-muted-foreground">{vacancy.location}</TableCell>
-                  <TableCell className="font-medium">
-                    {formatSalary(vacancy.salary.min, vacancy.salary.max)}
+                  <TableCell>
+                    <div className="flex flex-col gap-1">
+                      <Badge variant="outline" className="w-fit">
+                        {vacancy.atsStatus.name}
+                      </Badge>
+                      <span className="text-xs text-muted-foreground font-mono">
+                        {vacancy.atsId}
+                      </span>
+                    </div>
                   </TableCell>
                   <TableCell>
-                    <Badge variant="outline" className={status.className}>
-                      {status.label}
-                    </Badge>
+                    <div className="flex flex-col gap-1">
+                      <Badge
+                        variant="secondary"
+                        className={vacancy.isPosted ? "bg-success/10 text-success hover:bg-success/20" : "bg-muted text-muted-foreground"}
+                      >
+                        {vacancy.postingStatus.name}
+                      </Badge>
+                      {vacancy.isPosted && (
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <Calendar className="h-3 w-3" />
+                          <span>{formatDate(vacancy.mainJbPosted)}</span>
+                        </div>
+                      )}
+                    </div>
                   </TableCell>
-                  <TableCell className="text-center">
-                    <div className="flex items-center justify-center gap-1 text-muted-foreground">
-                      <Users className="h-4 w-4" />
-                      <span>{vacancy.applicantsCount}</span>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage src={vacancy.recruiter.avatarUrl} />
+                        <AvatarFallback>
+                          {vacancy.recruiter.firstName[0]}{vacancy.recruiter.lastName[0]}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium">
+                          {vacancy.recruiter.firstName} {vacancy.recruiter.lastName}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {vacancy.recruiter.email}
+                        </span>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex flex-col text-sm">
+                      <span>{vacancy.city.name}</span>
+                      <span className="text-muted-foreground text-xs">{vacancy.country.name}</span>
                     </div>
                   </TableCell>
                   <TableCell className="text-center">

@@ -1,4 +1,4 @@
-import { Briefcase, Users, TrendingUp, Clock } from 'lucide-react';
+import { Briefcase, Globe, CheckCircle, FileEdit } from 'lucide-react';
 import { Vacancy } from '@/shared/types/vacancy';
 
 interface StatsCardsProps {
@@ -6,37 +6,37 @@ interface StatsCardsProps {
 }
 
 export const StatsCards = ({ vacancies }: StatsCardsProps) => {
-  const openVacancies = vacancies.filter((v) => v.status === 'open').length;
-  const totalApplicants = vacancies.reduce((sum, v) => sum + v.applicantsCount, 0);
-  const avgApplicants = vacancies.length > 0 ? Math.round(totalApplicants / vacancies.length) : 0;
-  const pausedVacancies = vacancies.filter((v) => v.status === 'paused').length;
+  const totalVacancies = vacancies.length;
+  const postedVacancies = vacancies.filter((v) => v.isPosted).length;
+  const atsOpenVacancies = vacancies.filter((v) => v.atsStatus.name === 'Open').length;
+  const draftVacancies = vacancies.filter((v) => v.postingStatus.name === 'Draft').length;
 
   const stats = [
     {
-      title: 'Open Vacancies',
-      value: openVacancies,
+      title: 'Total Vacancies',
+      value: totalVacancies,
       icon: Briefcase,
       color: 'text-primary',
       bgColor: 'bg-primary/10',
     },
     {
-      title: 'Total Candidates',
-      value: totalApplicants,
-      icon: Users,
+      title: 'Posted',
+      value: postedVacancies,
+      icon: Globe,
       color: 'text-success',
       bgColor: 'bg-success/10',
     },
     {
-      title: 'Avg per Vacancy',
-      value: avgApplicants,
-      icon: TrendingUp,
+      title: 'ATS Open',
+      value: atsOpenVacancies,
+      icon: CheckCircle,
       color: 'text-info',
       bgColor: 'bg-info/10',
     },
     {
-      title: 'On Pause',
-      value: pausedVacancies,
-      icon: Clock,
+      title: 'Drafts',
+      value: draftVacancies,
+      icon: FileEdit,
       color: 'text-warning',
       bgColor: 'bg-warning/10',
     },

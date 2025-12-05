@@ -1,1 +1,9 @@
-export { mockVacancies, locations, departments } from './model/mockData';
+export {
+  mockVacancies,
+  mockClients,
+  mockRecruiters,
+  mockAtsStatuses,
+  mockPostingStatuses,
+  mockCountries,
+  mockCities
+} from './model/mockData';
