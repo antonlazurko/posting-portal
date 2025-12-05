@@ -13,28 +13,28 @@ export const StatsCards = ({ vacancies }: StatsCardsProps) => {
 
   const stats = [
     {
-      title: 'Открытые вакансии',
+      title: 'Open Vacancies',
       value: openVacancies,
       icon: Briefcase,
       color: 'text-primary',
       bgColor: 'bg-primary/10',
     },
     {
-      title: 'Всего кандидатов',
+      title: 'Total Candidates',
       value: totalApplicants,
       icon: Users,
       color: 'text-success',
       bgColor: 'bg-success/10',
     },
     {
-      title: 'Среднее на вакансию',
+      title: 'Avg per Vacancy',
       value: avgApplicants,
       icon: TrendingUp,
       color: 'text-info',
       bgColor: 'bg-info/10',
     },
     {
-      title: 'На паузе',
+      title: 'On Pause',
       value: pausedVacancies,
       icon: Clock,
       color: 'text-warning',

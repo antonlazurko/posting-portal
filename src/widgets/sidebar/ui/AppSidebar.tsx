@@ -1,9 +1,9 @@
-import { 
-  LayoutDashboard, 
-  Briefcase, 
-  Users, 
-  Building2, 
-  BarChart3, 
+import {
+  LayoutDashboard,
+  Briefcase,
+  Users,
+  Building2,
+  BarChart3,
   Settings,
   LogOut
 } from 'lucide-react';
@@ -25,15 +25,15 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 
 const mainNavItems = [
-  { title: 'Дашборд', url: '/', icon: LayoutDashboard },
-  { title: 'Вакансии', url: '/vacancies', icon: Briefcase },
-  { title: 'Кандидаты', url: '/candidates', icon: Users },
-  { title: 'Компании', url: '/companies', icon: Building2 },
-  { title: 'Аналитика', url: '/analytics', icon: BarChart3 },
+  { title: 'Dashboard', url: '/', icon: LayoutDashboard },
+  { title: 'Vacancies', url: '/vacancies', icon: Briefcase },
+  { title: 'Candidates', url: '/candidates', icon: Users },
+  { title: 'Companies', url: '/companies', icon: Building2 },
+  { title: 'Analytics', url: '/analytics', icon: BarChart3 },
 ];
 
 const bottomNavItems = [
-  { title: 'Настройки', url: '/settings', icon: Settings },
+  { title: 'Settings', url: '/settings', icon: Settings },
 ];
 
 export const AppSidebar = () => {
@@ -50,7 +50,7 @@ export const AppSidebar = () => {
           {!collapsed && (
             <div className="flex flex-col">
               <span className="font-bold text-foreground">RecruiterHub</span>
-              <span className="text-xs text-muted-foreground">Управление вакансиями</span>
+              <span className="text-xs text-muted-foreground">Vacancy Management</span>
             </div>
           )}
         </div>
@@ -60,14 +60,14 @@ export const AppSidebar = () => {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Меню</SidebarGroupLabel>
+          <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {mainNavItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild tooltip={item.title}>
-                    <NavLink 
-                      to={item.url} 
+                    <NavLink
+                      to={item.url}
                       className="flex items-center gap-3 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                       activeClassName="bg-primary/10 text-primary font-medium"
                     >
@@ -87,8 +87,8 @@ export const AppSidebar = () => {
           {bottomNavItems.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild tooltip={item.title}>
-                <NavLink 
-                  to={item.url} 
+                <NavLink
+                  to={item.url}
                   className="flex items-center gap-3 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                   activeClassName="bg-primary/10 text-primary font-medium"
                 >
@@ -105,12 +105,12 @@ export const AppSidebar = () => {
         <div className="flex items-center gap-3 px-3 py-2">
           <Avatar className="h-8 w-8 shrink-0">
             <AvatarFallback className="bg-accent text-accent-foreground text-sm">
-              АИ
+              AI
             </AvatarFallback>
           </Avatar>
           {!collapsed && (
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">Анна Иванова</p>
+              <p className="text-sm font-medium truncate">Anna Ivanova</p>
               <p className="text-xs text-muted-foreground truncate">HR Manager</p>
             </div>
           )}

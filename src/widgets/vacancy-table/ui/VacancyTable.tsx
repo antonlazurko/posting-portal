@@ -30,10 +30,10 @@ interface VacancyTableProps {
 }
 
 const statusConfig = {
-  open: { label: 'Открыта', className: 'bg-success/10 text-success border-success/20' },
-  closed: { label: 'Закрыта', className: 'bg-muted text-muted-foreground border-muted' },
-  paused: { label: 'Приостановлена', className: 'bg-warning/10 text-warning border-warning/20' },
-  draft: { label: 'Черновик', className: 'bg-muted text-muted-foreground border-muted' },
+  open: { label: 'Open', className: 'bg-success/10 text-success border-success/20' },
+  closed: { label: 'Closed', className: 'bg-muted text-muted-foreground border-muted' },
+  paused: { label: 'Paused', className: 'bg-warning/10 text-warning border-warning/20' },
+  draft: { label: 'Draft', className: 'bg-muted text-muted-foreground border-muted' },
 };
 
 const formatSalary = (min: number, max: number) => {
@@ -56,12 +56,12 @@ export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTa
       <Table>
         <TableHeader>
           <TableRow className="bg-muted/50 hover:bg-muted/50">
-            <TableHead className="font-semibold">Вакансия</TableHead>
-            <TableHead className="font-semibold">Локация</TableHead>
-            <TableHead className="font-semibold">Зарплата</TableHead>
-            <TableHead className="font-semibold">Статус</TableHead>
-            <TableHead className="font-semibold text-center">Кандидаты</TableHead>
-            <TableHead className="font-semibold text-center">Связи</TableHead>
+            <TableHead className="font-semibold">Vacancy</TableHead>
+            <TableHead className="font-semibold">Location</TableHead>
+            <TableHead className="font-semibold">Salary</TableHead>
+            <TableHead className="font-semibold">Status</TableHead>
+            <TableHead className="font-semibold text-center">Candidates</TableHead>
+            <TableHead className="font-semibold text-center">Links</TableHead>
             <TableHead className="font-semibold w-[50px]"></TableHead>
           </TableRow>
         </TableHeader>
@@ -69,7 +69,7 @@ export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTa
           {vacancies.length === 0 ? (
             <TableRow>
               <TableCell colSpan={7} className="h-32 text-center text-muted-foreground">
-                Вакансии не найдены
+                No vacancies found
               </TableCell>
             </TableRow>
           ) : (
@@ -115,7 +115,7 @@ export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTa
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent side="top" className="max-w-[200px]">
-                          <p className="font-medium mb-1">Связанные вакансии:</p>
+                          <p className="font-medium mb-1">Linked vacancies:</p>
                           <ul className="text-xs space-y-0.5">
                             {linkedNames.map((name, i) => (
                               <li key={i}>• {name}</li>
@@ -131,7 +131,7 @@ export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTa
                         className="gap-1 text-muted-foreground hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <Link2 className="h-4 w-4" />
-                        Связать
+                        Link
                       </Button>
                     )}
                   </TableCell>
@@ -145,20 +145,20 @@ export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTa
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem>
                           <Eye className="h-4 w-4 mr-2" />
-                          Просмотр
+                          View
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <Pencil className="h-4 w-4 mr-2" />
-                          Редактировать
+                          Edit
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => onLinkClick(vacancy)}>
                           <Link2 className="h-4 w-4 mr-2" />
-                          Связать
+                          Link
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem className="text-destructive">
                           <Trash2 className="h-4 w-4 mr-2" />
-                          Удалить
+                          Delete
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

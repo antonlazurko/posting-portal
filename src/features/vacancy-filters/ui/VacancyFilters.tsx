@@ -34,7 +34,7 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
     <div className="bg-card border border-border rounded-xl p-5 mb-6">
       <div className="flex items-center gap-2 mb-4">
         <Filter className="h-5 w-5 text-primary" />
-        <h3 className="font-semibold text-foreground">Фильтры</h3>
+        <h3 className="font-semibold text-foreground">Filters</h3>
         {hasActiveFilters && (
           <Button
             variant="ghost"
@@ -43,7 +43,7 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
             className="ml-auto text-muted-foreground hover:text-foreground"
           >
             <X className="h-4 w-4 mr-1" />
-            Сбросить
+            Reset
           </Button>
         )}
       </div>
@@ -53,7 +53,7 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Поиск по названию или компании..."
+              placeholder="Search by title or company..."
               value={filters.search}
               onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
               className="pl-10"
@@ -63,30 +63,30 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
 
         <Select
           value={filters.status}
-          onValueChange={(value) => onFiltersChange({ ...filters, status: value as Filters['status'] })}
+          onValueChange={(value: string) => onFiltersChange({ ...filters, status: value as Filters['status'] })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Статус" />
+            <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Все статусы</SelectItem>
-            <SelectItem value="open">Открыта</SelectItem>
-            <SelectItem value="closed">Закрыта</SelectItem>
-            <SelectItem value="paused">Приостановлена</SelectItem>
-            <SelectItem value="draft">Черновик</SelectItem>
+            <SelectItem value="all">All Statuses</SelectItem>
+            <SelectItem value="open">Open</SelectItem>
+            <SelectItem value="closed">Closed</SelectItem>
+            <SelectItem value="paused">Paused</SelectItem>
+            <SelectItem value="draft">Draft</SelectItem>
           </SelectContent>
         </Select>
 
         <Select
           value={filters.location || 'all'}
-          onValueChange={(value) => onFiltersChange({ ...filters, location: value === 'all' ? '' : value })}
+          onValueChange={(value: string) => onFiltersChange({ ...filters, location: value === 'all' ? '' : value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Локация" />
+            <SelectValue placeholder="Location" />
           </SelectTrigger>
           <SelectContent>
             {locations.map((loc) => (
-              <SelectItem key={loc} value={loc === 'Все' ? 'all' : loc}>
+              <SelectItem key={loc} value={loc === 'All' ? 'all' : loc}>
                 {loc}
               </SelectItem>
             ))}
@@ -95,14 +95,14 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
 
         <Select
           value={filters.department || 'all'}
-          onValueChange={(value) => onFiltersChange({ ...filters, department: value === 'all' ? '' : value })}
+          onValueChange={(value: string) => onFiltersChange({ ...filters, department: value === 'all' ? '' : value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Отдел" />
+            <SelectValue placeholder="Department" />
           </SelectTrigger>
           <SelectContent>
             {departments.map((dep) => (
-              <SelectItem key={dep} value={dep === 'Все' ? 'all' : dep}>
+              <SelectItem key={dep} value={dep === 'All' ? 'all' : dep}>
                 {dep}
               </SelectItem>
             ))}

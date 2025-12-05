@@ -61,15 +61,15 @@ export const Dashboard = () => {
           <div className="flex items-center gap-4">
             <SidebarTrigger className="lg:hidden" />
             <div>
-              <h1 className="text-xl font-bold text-foreground">Дашборд вакансий</h1>
+              <h1 className="text-xl font-bold text-foreground">Vacancy Dashboard</h1>
               <p className="text-sm text-muted-foreground">
-                Управляйте вакансиями и связями между ними
+                Manage vacancies and their relationships
               </p>
             </div>
           </div>
           <Button>
             <Plus className="h-4 w-4 mr-2" />
-            Новая вакансия
+            New Vacancy
           </Button>
         </div>
       </header>
@@ -79,7 +79,7 @@ export const Dashboard = () => {
         <VacancyFilters filters={filters} onFiltersChange={setFilters} />
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm text-muted-foreground">
-            Найдено: <span className="font-medium text-foreground">{filteredVacancies.length}</span> вакансий
+            Found: <span className="font-medium text-foreground">{filteredVacancies.length}</span> vacancies
           </p>
         </div>
         <VacancyTable

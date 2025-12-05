@@ -56,20 +56,20 @@ export const LinkVacancyDialog = ({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Link2 className="h-5 w-5 text-primary" />
-            Связать вакансии
+            Link Vacancies
           </DialogTitle>
         </DialogHeader>
 
         {vacancy && (
           <div className="space-y-4">
             <div className="p-3 bg-muted rounded-lg">
-              <p className="text-sm text-muted-foreground">Текущая вакансия:</p>
+              <p className="text-sm text-muted-foreground">Current Vacancy:</p>
               <p className="font-medium">{vacancy.title}</p>
               <p className="text-sm text-muted-foreground">{vacancy.company}</p>
             </div>
 
             <div>
-              <p className="text-sm font-medium mb-3">Выберите связанные вакансии:</p>
+              <p className="text-sm font-medium mb-3">Select Linked Vacancies:</p>
               <ScrollArea className="h-[300px] pr-4">
                 <div className="space-y-2">
                   {otherVacancies.map((v) => (
@@ -92,9 +92,9 @@ export const LinkVacancyDialog = ({
                         v.status === 'paused' ? 'bg-warning/10 text-warning' :
                         'bg-muted text-muted-foreground'
                       }`}>
-                        {v.status === 'open' ? 'Открыта' :
-                         v.status === 'closed' ? 'Закрыта' :
-                         v.status === 'paused' ? 'Пауза' : 'Черновик'}
+                        {v.status === 'open' ? 'Open' :
+                         v.status === 'closed' ? 'Closed' :
+                         v.status === 'paused' ? 'Paused' : 'Draft'}
                       </span>
                     </label>
                   ))}
@@ -105,11 +105,11 @@ export const LinkVacancyDialog = ({
             <div className="flex justify-end gap-2 pt-2">
               <Button variant="outline" onClick={() => onOpenChange(false)}>
                 <X className="h-4 w-4 mr-1" />
-                Отмена
+                Cancel
               </Button>
               <Button onClick={handleSave}>
                 <Check className="h-4 w-4 mr-1" />
-                Сохранить
+                Save
               </Button>
             </div>
           </div>
