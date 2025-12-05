@@ -1,3 +1,5 @@
+"use client";
+
 import { Search, Filter, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -22,10 +24,10 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
     });
   };
 
-  const hasActiveFilters = 
-    filters.search || 
-    filters.status !== 'all' || 
-    filters.location || 
+  const hasActiveFilters =
+    filters.search ||
+    filters.status !== 'all' ||
+    filters.location ||
     filters.department;
 
   return (
@@ -34,9 +36,9 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
         <Filter className="h-5 w-5 text-primary" />
         <h3 className="font-semibold text-foreground">Фильтры</h3>
         {hasActiveFilters && (
-          <Button 
-            variant="ghost" 
-            size="sm" 
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={handleReset}
             className="ml-auto text-muted-foreground hover:text-foreground"
           >
@@ -45,7 +47,7 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
           </Button>
         )}
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <div className="lg:col-span-2">
           <div className="relative">
@@ -59,8 +61,8 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
           </div>
         </div>
 
-        <Select 
-          value={filters.status} 
+        <Select
+          value={filters.status}
           onValueChange={(value) => onFiltersChange({ ...filters, status: value as Filters['status'] })}
         >
           <SelectTrigger>
@@ -75,8 +77,8 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
           </SelectContent>
         </Select>
 
-        <Select 
-          value={filters.location || 'all'} 
+        <Select
+          value={filters.location || 'all'}
           onValueChange={(value) => onFiltersChange({ ...filters, location: value === 'all' ? '' : value })}
         >
           <SelectTrigger>
@@ -91,8 +93,8 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
           </SelectContent>
         </Select>
 
-        <Select 
-          value={filters.department || 'all'} 
+        <Select
+          value={filters.department || 'all'}
           onValueChange={(value) => onFiltersChange({ ...filters, department: value === 'all' ? '' : value })}
         >
           <SelectTrigger>
