@@ -25,9 +25,17 @@ interface VacancyTableProps {
   vacancies: Vacancy[];
   allVacancies: Vacancy[];
   onLinkClick: (vacancy: Vacancy) => void;
+  onView: (vacancy: Vacancy) => void;
+  onEdit: (vacancy: Vacancy) => void;
 }
 
-export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTableProps) => {
+export const VacancyTable = ({
+  vacancies,
+  allVacancies,
+  onLinkClick,
+  onView,
+  onEdit,
+}: VacancyTableProps) => {
   const getLinkedVacancyNames = (linkedIds: string[] | null) => {
     if (!linkedIds) return [];
     return linkedIds.map((id) => allVacancies.find((v) => v.id === id)?.title).filter(Boolean);
@@ -172,11 +180,11 @@ export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTa
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => onView(vacancy)}>
                           <Eye className="h-4 w-4 mr-2" />
                           View
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => onEdit(vacancy)}>
                           <Pencil className="h-4 w-4 mr-2" />
                           Edit
                         </DropdownMenuItem>

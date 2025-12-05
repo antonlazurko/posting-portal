@@ -9,7 +9,14 @@ import { VacancyTable } from '@/widgets/vacancy-table';
 import { StatsCards } from '@/widgets/stats-cards';
 import { Vacancy, VacancyFilters as Filters } from '@/shared/types/vacancy';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { fetchVacancies, updateVacancyLinks, fetchDictionaries } from '@/shared/api/vacancies';
+import { VacancyDialog } from '@/features/vacancy-form/ui/VacancyDialog';
+import {
+  fetchVacancies,
+  updateVacancyLinks,
+  fetchDictionaries,
+  createVacancy,
+  updateVacancy,
+} from '@/shared/api/vacancies';
 
 const initialFilters: Filters = {
   search: '',
@@ -34,6 +41,10 @@ export const Dashboard = () => {
     countries: [],
     cities: [],
   });
+
+  // Vacancy Dialog State
+  const [vacancyDialogOpen, setVacancyDialogOpen] = useState(false);
+  const [dialogMode, setDialogMode] = useState<'create' | 'edit' | 'view'>('create');
 
   const loadVacancies = useCallback(async () => {
     try {
@@ -74,6 +85,38 @@ export const Dashboard = () => {
     }
   };
 
+  const handleCreate = () => {
+    setSelectedVacancy(null);
+    setDialogMode('create');
+    setVacancyDialogOpen(true);
+  };
+
+  const handleEdit = (vacancy: Vacancy) => {
+    setSelectedVacancy(vacancy);
+    setDialogMode('edit');
+    setVacancyDialogOpen(true);
+  };
+
+  const handleView = (vacancy: Vacancy) => {
+    setSelectedVacancy(vacancy);
+    setDialogMode('view');
+    setVacancyDialogOpen(true);
+  };
+
+  const handleSaveVacancy = async (data: Partial<Vacancy>) => {
+    try {
+      if (dialogMode === 'create') {
+        await createVacancy(data);
+      } else if (dialogMode === 'edit' && selectedVacancy) {
+        await updateVacancy(selectedVacancy.id, data);
+      }
+      loadVacancies();
+    } catch (error) {
+      console.error('Failed to save vacancy', error);
+      throw error;
+    }
+  };
+
   return (
     <div className="flex-1 flex flex-col min-h-screen bg-background">
       <header className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
@@ -87,6 +130,10 @@ export const Dashboard = () => {
               </p>
             </div>
           </div>
+          <Button onClick={handleCreate}>
+            <Plus className="h-4 w-4 mr-2" />
+            New Vacancy
+          </Button>
         </div>
       </header>
 
@@ -106,6 +153,8 @@ export const Dashboard = () => {
           vacancies={vacancies}
           allVacancies={vacancies}
           onLinkClick={handleLinkClick}
+          onView={handleView}
+          onEdit={handleEdit}
         />
       </main>
 
@@ -115,6 +164,15 @@ export const Dashboard = () => {
         vacancy={selectedVacancy}
         allVacancies={vacancies}
         onLink={handleLink}
+      />
+
+      <VacancyDialog
+        open={vacancyDialogOpen}
+        onOpenChange={setVacancyDialogOpen}
+        mode={dialogMode}
+        vacancy={selectedVacancy}
+        onSave={handleSaveVacancy}
+        dictionaries={dictionaries}
       />
     </div>
   );

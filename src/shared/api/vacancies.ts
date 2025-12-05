@@ -15,6 +15,26 @@ export const fetchVacancies = async (filters: VacancyFilters): Promise<Vacancy[]
   return response.json();
 };
 
+export const createVacancy = async (data: Partial<Vacancy>): Promise<Vacancy> => {
+  const response = await fetch('/api/vacancies', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) throw new Error('Failed to create vacancy');
+  return response.json();
+};
+
+export const updateVacancy = async (id: string, data: Partial<Vacancy>): Promise<Vacancy> => {
+  const response = await fetch(`/api/vacancies/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) throw new Error('Failed to update vacancy');
+  return response.json();
+};
+
 export const updateVacancyLinks = async (id: string, linkedIds: string[]): Promise<Vacancy> => {
   const response = await fetch(`/api/vacancies/${id}`, {
     method: 'PATCH',

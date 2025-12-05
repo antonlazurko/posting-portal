@@ -28,11 +28,23 @@ export interface Vacancy {
   dateCreated: string; // ISO 8601
   isMain: boolean;
   linkedIds: string[] | null;
+
+  clientId: string;
   client: IEntityBasic;
+
+  recruiterId: string;
   recruiter: IUser & { isActive: boolean };
+
+  atsStatusId: string;
   atsStatus: IEntityBasic;
+
+  postingStatusId: string;
   postingStatus: IEntityBasic;
+
+  countryId: string;
   country: IEntityBasic;
+
+  cityId: string;
   city: IEntityBasic;
 }
 
