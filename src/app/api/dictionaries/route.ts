@@ -8,7 +8,7 @@ export async function GET() {
     const [clients, recruiters, atsStatuses, postingStatuses, countries, cities] =
       await Promise.all([
         prisma.client.findMany(),
-        prisma.recruiter.findMany(),
+        prisma.user.findMany({ where: { role: 'hr-recruiter' } }),
         prisma.atsStatus.findMany(),
         prisma.postingStatus.findMany(),
         prisma.country.findMany(),

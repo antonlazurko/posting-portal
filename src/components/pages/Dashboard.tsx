@@ -17,6 +17,7 @@ import {
   createVacancy,
   updateVacancy,
 } from '@/shared/api/vacancies';
+import { useAuth } from '@/features/auth/AuthProvider';
 
 const initialFilters: Filters = {
   search: '',
@@ -45,6 +46,9 @@ export const Dashboard = () => {
   // Vacancy Dialog State
   const [vacancyDialogOpen, setVacancyDialogOpen] = useState(false);
   const [dialogMode, setDialogMode] = useState<'create' | 'edit' | 'view'>('create');
+
+  const { user } = useAuth();
+  const isRecruiter = user?.role === 'hr-recruiter';
 
   const loadVacancies = useCallback(async () => {
     try {
@@ -130,10 +134,12 @@ export const Dashboard = () => {
               </p>
             </div>
           </div>
-          <Button onClick={handleCreate}>
-            <Plus className="h-4 w-4 mr-2" />
-            New Vacancy
-          </Button>
+          {isRecruiter && (
+            <Button onClick={handleCreate}>
+              <Plus className="h-4 w-4 mr-2" />
+              New Vacancy
+            </Button>
+          )}
         </div>
       </header>
 
@@ -154,7 +160,7 @@ export const Dashboard = () => {
           allVacancies={vacancies}
           onLinkClick={handleLinkClick}
           onView={handleView}
-          onEdit={handleEdit}
+          onEdit={isRecruiter ? handleEdit : () => {}}
         />
       </main>
 
