@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Vacancy {
+  id              String   @id @default(uuid())
+  atsId           String
+  title           String
+  mainJbUrl       String?
+  isRepeating     Boolean  @default(false)
+  comment         String?
+  specificProject String
+  mainJbPosted    DateTime
+  isPosted        Boolean  @default(false)
+  dateCreated     DateTime @default(now())
+  isMain          Boolean  @default(false)
+
+  // Relations
+  clientId        String
+  client          Client   @relation(fields: [clientId], references: [id])
+
+  recruiterId     String
+  recruiter       Recruiter @relation(fields: [recruiterId], references: [id])
+
+  atsStatusId     String
+  atsStatus       AtsStatus @relation(fields: [atsStatusId], references: [id])
+
+  postingStatusId String
+  postingStatus   PostingStatus @relation(fields: [postingStatusId], references: [id])
+
+  countryId       String
+  country         Country @relation(fields: [countryId], references: [id])
+
+  cityId          String
+  city            City    @relation(fields: [cityId], references: [id])
+
+  // Self-relation for linked vacancies
+  linkedTo        Vacancy[] @relation("LinkedVacancies")
+  linkedFrom      Vacancy[] @relation("LinkedVacancies")
+}
+
+model Client {
+  id        String    @id @default(uuid())
+  name      String
+  vacancies Vacancy[]
+}
+
+model Recruiter {
+  id        String    @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String
+  avatarUrl String?
+  isActive  Boolean   @default(true)
+  vacancies Vacancy[]
+}
+
+model AtsStatus {
+  id        String    @id @default(uuid())
+  name      String
+  vacancies Vacancy[]
+}
+
+model PostingStatus {
+  id        String    @id @default(uuid())
+  name      String
+  vacancies Vacancy[]
+}
+
+model Country {
+  id        String    @id @default(uuid())
+  name      String
+  vacancies Vacancy[]
+}
+
+model City {
+  id        String    @id @default(uuid())
+  name      String
+  vacancies Vacancy[]
+}

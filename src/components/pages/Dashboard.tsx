@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { VacancyFilters } from '@/features/vacancy-filters';
 import { LinkVacancyDialog } from '@/features/vacancy-link';
 import { VacancyTable } from '@/widgets/vacancy-table';
 import { StatsCards } from '@/widgets/stats-cards';
-import { mockVacancies } from '@/entities/vacancy';
 import { Vacancy, VacancyFilters as Filters } from '@/shared/types/vacancy';
 import { SidebarTrigger } from '@/components/ui/sidebar';
+import { fetchVacancies, updateVacancyLinks, fetchDictionaries } from '@/shared/api/vacancies';
 
 const initialFilters: Filters = {
   search: '',
@@ -22,38 +22,56 @@ const initialFilters: Filters = {
 };
 
 export const Dashboard = () => {
-  const [vacancies, setVacancies] = useState<Vacancy[]>(mockVacancies);
+  const [vacancies, setVacancies] = useState<Vacancy[]>([]);
   const [filters, setFilters] = useState<Filters>(initialFilters);
   const [linkDialogOpen, setLinkDialogOpen] = useState(false);
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
+  const [dictionaries, setDictionaries] = useState<any>({
+    clients: [],
+    recruiters: [],
+    atsStatuses: [],
+    postingStatuses: [],
+    countries: [],
+    cities: [],
+  });
 
-  const filteredVacancies = useMemo(() => {
-    return vacancies.filter((vacancy) => {
-      const searchMatch =
-        !filters.search ||
-        vacancy.title.toLowerCase().includes(filters.search.toLowerCase()) ||
-        vacancy.client.name.toLowerCase().includes(filters.search.toLowerCase());
+  const loadVacancies = useCallback(async () => {
+    try {
+      const data = await fetchVacancies(filters);
+      setVacancies(data);
+    } catch (error) {
+      console.error('Failed to load vacancies', error);
+    }
+  }, [filters]);
 
-      const atsStatusMatch = filters.atsStatus === 'all' || vacancy.atsStatus.id === filters.atsStatus;
-      const postingStatusMatch = filters.postingStatus === 'all' || vacancy.postingStatus.id === filters.postingStatus;
-      const clientMatch = filters.clientId === 'all' || vacancy.client.id === filters.clientId;
-      const recruiterMatch = filters.recruiterId === 'all' || vacancy.recruiter.id === filters.recruiterId;
-      const countryMatch = filters.countryId === 'all' || vacancy.country.id === filters.countryId;
-      const cityMatch = filters.cityId === 'all' || vacancy.city.id === filters.cityId;
+  useEffect(() => {
+    loadVacancies();
+  }, [loadVacancies]);
 
-      return searchMatch && atsStatusMatch && postingStatusMatch && clientMatch && recruiterMatch && countryMatch && cityMatch;
-    });
-  }, [vacancies, filters]);
+  useEffect(() => {
+    const loadDictionaries = async () => {
+      try {
+        const data = await fetchDictionaries();
+        setDictionaries(data);
+      } catch (error) {
+        console.error('Failed to load dictionaries', error);
+      }
+    };
+    loadDictionaries();
+  }, []);
 
   const handleLinkClick = (vacancy: Vacancy) => {
     setSelectedVacancy(vacancy);
     setLinkDialogOpen(true);
   };
 
-  const handleLink = (vacancyId: string, linkedIds: string[]) => {
-    setVacancies((prev) =>
-      prev.map((v) => (v.id === vacancyId ? { ...v, linkedIds: linkedIds } : v))
-    );
+  const handleLink = async (vacancyId: string, linkedIds: string[]) => {
+    try {
+      await updateVacancyLinks(vacancyId, linkedIds);
+      loadVacancies(); // Refresh list
+    } catch (error) {
+      console.error('Failed to link vacancies', error);
+    }
   };
 
   return (
@@ -69,23 +87,23 @@ export const Dashboard = () => {
               </p>
             </div>
           </div>
-          <Button>
-            <Plus className="h-4 w-4 mr-2" />
-            New Vacancy
-          </Button>
         </div>
       </header>
 
       <main className="flex-1 p-6">
         <StatsCards vacancies={vacancies} />
-        <VacancyFilters filters={filters} onFiltersChange={setFilters} />
+        <VacancyFilters
+          filters={filters}
+          onFiltersChange={setFilters}
+          dictionaries={dictionaries}
+        />
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm text-muted-foreground">
-            Found: <span className="font-medium text-foreground">{filteredVacancies.length}</span> vacancies
+            Found: <span className="font-medium text-foreground">{vacancies.length}</span> vacancies
           </p>
         </div>
         <VacancyTable
-          vacancies={filteredVacancies}
+          vacancies={vacancies}
           allVacancies={vacancies}
           onLinkClick={handleLinkClick}
         />

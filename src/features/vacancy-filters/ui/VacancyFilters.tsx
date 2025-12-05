@@ -5,21 +5,21 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { VacancyFilters as Filters } from '@/shared/types/vacancy';
-import {
-  mockClients,
-  mockRecruiters,
-  mockAtsStatuses,
-  mockPostingStatuses,
-  mockCountries,
-  mockCities
-} from '@/entities/vacancy';
 
 interface VacancyFiltersProps {
   filters: Filters;
   onFiltersChange: (filters: Filters) => void;
+  dictionaries: {
+    clients: any[];
+    recruiters: any[];
+    atsStatuses: any[];
+    postingStatuses: any[];
+    countries: any[];
+    cities: any[];
+  };
 }
 
-export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps) => {
+export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: VacancyFiltersProps) => {
   const handleReset = () => {
     onFiltersChange({
       search: '',
@@ -81,7 +81,7 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All ATS Statuses</SelectItem>
-            {mockAtsStatuses.map((s) => (
+            {dictionaries.atsStatuses.map((s) => (
               <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
             ))}
           </SelectContent>
@@ -96,7 +96,7 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Posting Statuses</SelectItem>
-            {mockPostingStatuses.map((s) => (
+            {dictionaries.postingStatuses.map((s) => (
               <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
             ))}
           </SelectContent>
@@ -111,7 +111,7 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Clients</SelectItem>
-            {mockClients.map((c) => (
+            {dictionaries.clients.map((c) => (
               <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
             ))}
           </SelectContent>
@@ -126,7 +126,7 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Recruiters</SelectItem>
-            {mockRecruiters.map((r) => (
+            {dictionaries.recruiters.map((r) => (
               <SelectItem key={r.id} value={r.id}>{r.firstName} {r.lastName}</SelectItem>
             ))}
           </SelectContent>
@@ -141,7 +141,7 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Countries</SelectItem>
-            {mockCountries.map((c) => (
+            {dictionaries.countries.map((c) => (
               <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
             ))}
           </SelectContent>
@@ -156,7 +156,7 @@ export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Cities</SelectItem>
-            {mockCities.map((c) => (
+            {dictionaries.cities.map((c) => (
               <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
             ))}
           </SelectContent>

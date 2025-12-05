@@ -185,11 +185,6 @@ export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTa
                           <Link2 className="h-4 w-4 mr-2" />
                           Link
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem className="text-destructive">
-                          <Trash2 className="h-4 w-4 mr-2" />
-                          Delete
-                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
