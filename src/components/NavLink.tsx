@@ -1,9 +1,9 @@
-import Link, { LinkProps } from "next/link";
-import { usePathname } from "next/navigation";
-import { forwardRef } from "react";
-import { cn } from "@/lib/utils";
+import Link, { LinkProps } from 'next/link';
+import { usePathname } from 'next/navigation';
+import { forwardRef } from 'react';
+import { cn } from '@/lib/utils';
 
-interface NavLinkCompatProps extends Omit<LinkProps, "className" | "href"> {
+interface NavLinkCompatProps extends Omit<LinkProps, 'className' | 'href'> {
   className?: string;
   activeClassName?: string;
   pendingClassName?: string;
@@ -18,16 +18,11 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkCompatProps>(
     const { href, ...rest } = props as any; // Handle potential href in props
 
     return (
-      <Link
-        ref={ref}
-        href={to}
-        className={cn(className, isActive && activeClassName)}
-        {...rest}
-      />
+      <Link ref={ref} href={to} className={cn(className, isActive && activeClassName)} {...rest} />
     );
-  },
+  }
 );
 
-NavLink.displayName = "NavLink";
+NavLink.displayName = 'NavLink';
 
 export { NavLink };

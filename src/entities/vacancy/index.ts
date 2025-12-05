@@ -5,5 +5,5 @@ export {
   mockAtsStatuses,
   mockPostingStatuses,
   mockCountries,
-  mockCities
+  mockCities,
 } from './model/mockData';

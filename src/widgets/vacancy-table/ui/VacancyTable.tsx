@@ -16,11 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Vacancy } from '@/shared/types/vacancy';
 import { format } from 'date-fns';
@@ -34,9 +30,7 @@ interface VacancyTableProps {
 export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTableProps) => {
   const getLinkedVacancyNames = (linkedIds: string[] | null) => {
     if (!linkedIds) return [];
-    return linkedIds
-      .map((id) => allVacancies.find((v) => v.id === id)?.title)
-      .filter(Boolean);
+    return linkedIds.map((id) => allVacancies.find((v) => v.id === id)?.title).filter(Boolean);
   };
 
   const formatDate = (dateString: string) => {
@@ -94,7 +88,11 @@ export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTa
                     <div className="flex flex-col gap-1">
                       <Badge
                         variant="secondary"
-                        className={vacancy.isPosted ? "bg-success/10 text-success hover:bg-success/20" : "bg-muted text-muted-foreground"}
+                        className={
+                          vacancy.isPosted
+                            ? 'bg-success/10 text-success hover:bg-success/20'
+                            : 'bg-muted text-muted-foreground'
+                        }
                       >
                         {vacancy.postingStatus.name}
                       </Badge>
@@ -111,7 +109,8 @@ export const VacancyTable = ({ vacancies, allVacancies, onLinkClick }: VacancyTa
                       <Avatar className="h-8 w-8">
                         <AvatarImage src={vacancy.recruiter.avatarUrl} />
                         <AvatarFallback>
-                          {vacancy.recruiter.firstName[0]}{vacancy.recruiter.lastName[0]}
+                          {vacancy.recruiter.firstName[0]}
+                          {vacancy.recruiter.lastName[0]}
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex flex-col">

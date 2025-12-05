@@ -16,10 +16,7 @@ export async function GET(request: Request) {
   const where: any = {};
 
   if (search) {
-    where.OR = [
-      { title: { contains: search } },
-      { client: { name: { contains: search } } },
-    ];
+    where.OR = [{ title: { contains: search } }, { client: { name: { contains: search } } }];
   }
 
   if (atsStatusId && atsStatusId !== 'all') where.atsStatusId = atsStatusId;

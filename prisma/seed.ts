@@ -6,7 +6,7 @@ import {
   mockAtsStatuses,
   mockPostingStatuses,
   mockCountries,
-  mockCities
+  mockCities,
 } from '../src/entities/vacancy/model/mockData';
 
 const prisma = new PrismaClient();
@@ -104,7 +104,7 @@ async function main() {
         where: { id: vacancy.id },
         data: {
           linkedTo: {
-            connect: vacancy.linkedIds.map(id => ({ id })),
+            connect: vacancy.linkedIds.map((id) => ({ id })),
           },
         },
       });

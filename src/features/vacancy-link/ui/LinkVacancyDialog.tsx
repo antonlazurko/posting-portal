@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { Link2, Check, X } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -37,9 +32,7 @@ export const LinkVacancyDialog = ({
   };
 
   const toggleVacancy = (id: string) => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id]
-    );
+    setSelectedIds((prev) => (prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id]));
   };
 
   const handleSave = () => {
@@ -85,7 +78,9 @@ export const LinkVacancyDialog = ({
                       />
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-sm">{v.title}</p>
-                        <p className="text-xs text-muted-foreground">{v.client.name} · {v.city.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {v.client.name} · {v.city.name}
+                        </p>
                       </div>
                       <Badge variant="outline" className="text-xs">
                         {v.atsStatus.name}

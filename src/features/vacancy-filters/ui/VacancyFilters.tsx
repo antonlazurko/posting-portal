@@ -1,8 +1,14 @@
-"use client";
+'use client';
 
 import { Search, Filter, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { VacancyFilters as Filters } from '@/shared/types/vacancy';
 
@@ -82,7 +88,9 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           <SelectContent>
             <SelectItem value="all">All ATS Statuses</SelectItem>
             {dictionaries.atsStatuses.map((s) => (
-              <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+              <SelectItem key={s.id} value={s.id}>
+                {s.name}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -97,7 +105,9 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           <SelectContent>
             <SelectItem value="all">All Posting Statuses</SelectItem>
             {dictionaries.postingStatuses.map((s) => (
-              <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+              <SelectItem key={s.id} value={s.id}>
+                {s.name}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -112,7 +122,9 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           <SelectContent>
             <SelectItem value="all">All Clients</SelectItem>
             {dictionaries.clients.map((c) => (
-              <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+              <SelectItem key={c.id} value={c.id}>
+                {c.name}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -127,7 +139,9 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           <SelectContent>
             <SelectItem value="all">All Recruiters</SelectItem>
             {dictionaries.recruiters.map((r) => (
-              <SelectItem key={r.id} value={r.id}>{r.firstName} {r.lastName}</SelectItem>
+              <SelectItem key={r.id} value={r.id}>
+                {r.firstName} {r.lastName}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -142,7 +156,9 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           <SelectContent>
             <SelectItem value="all">All Countries</SelectItem>
             {dictionaries.countries.map((c) => (
-              <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+              <SelectItem key={c.id} value={c.id}>
+                {c.name}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -157,7 +173,9 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           <SelectContent>
             <SelectItem value="all">All Cities</SelectItem>
             {dictionaries.cities.map((c) => (
-              <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+              <SelectItem key={c.id} value={c.id}>
+                {c.name}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>

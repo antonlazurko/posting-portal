@@ -5,14 +5,15 @@ const prisma = new PrismaClient();
 
 export async function GET() {
   try {
-    const [clients, recruiters, atsStatuses, postingStatuses, countries, cities] = await Promise.all([
-      prisma.client.findMany(),
-      prisma.recruiter.findMany(),
-      prisma.atsStatus.findMany(),
-      prisma.postingStatus.findMany(),
-      prisma.country.findMany(),
-      prisma.city.findMany(),
-    ]);
+    const [clients, recruiters, atsStatuses, postingStatuses, countries, cities] =
+      await Promise.all([
+        prisma.client.findMany(),
+        prisma.recruiter.findMany(),
+        prisma.atsStatus.findMany(),
+        prisma.postingStatus.findMany(),
+        prisma.country.findMany(),
+        prisma.city.findMany(),
+      ]);
 
     return NextResponse.json({
       clients,

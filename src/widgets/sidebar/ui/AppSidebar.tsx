@@ -5,7 +5,7 @@ import {
   Building2,
   BarChart3,
   Settings,
-  LogOut
+  LogOut,
 } from 'lucide-react';
 import { NavLink } from '@/components/NavLink';
 import {
@@ -32,9 +32,7 @@ const mainNavItems = [
   { title: 'Analytics', url: '/analytics', icon: BarChart3 },
 ];
 
-const bottomNavItems = [
-  { title: 'Settings', url: '/settings', icon: Settings },
-];
+const bottomNavItems = [{ title: 'Settings', url: '/settings', icon: Settings }];
 
 export const AppSidebar = () => {
   const { state } = useSidebar();
@@ -104,9 +102,7 @@ export const AppSidebar = () => {
 
         <div className="flex items-center gap-3 px-3 py-2">
           <Avatar className="h-8 w-8 shrink-0">
-            <AvatarFallback className="bg-accent text-accent-foreground text-sm">
-              AI
-            </AvatarFallback>
+            <AvatarFallback className="bg-accent text-accent-foreground text-sm">AI</AvatarFallback>
           </Avatar>
           {!collapsed && (
             <div className="flex-1 min-w-0">
