@@ -53,6 +53,7 @@ export const Dashboard = () => {
   const loadVacancies = useCallback(async () => {
     try {
       const data = await fetchVacancies(filters);
+      console.log('Fetched vacancies:', data);
       setVacancies(data);
     } catch (error) {
       console.error('Failed to load vacancies', error);

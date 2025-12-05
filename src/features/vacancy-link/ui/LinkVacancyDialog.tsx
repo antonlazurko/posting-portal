@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { Link2, Check, X } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -52,6 +58,7 @@ export const LinkVacancyDialog = ({
             <Link2 className="h-5 w-5 text-primary" />
             Link Vacancies
           </DialogTitle>
+          <DialogDescription>Select vacancies to link with the current vacancy.</DialogDescription>
         </DialogHeader>
 
         {vacancy && (

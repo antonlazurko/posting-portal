@@ -10,7 +10,7 @@ export const fetchVacancies = async (filters: VacancyFilters): Promise<Vacancy[]
   if (filters.countryId !== 'all') params.append('countryId', filters.countryId);
   if (filters.cityId !== 'all') params.append('cityId', filters.cityId);
 
-  const response = await fetch(`/api/vacancies?${params.toString()}`);
+  const response = await fetch(`/api/vacancies?${params.toString()}`, { cache: 'no-store' });
   if (!response.ok) throw new Error('Failed to fetch vacancies');
   return response.json();
 };

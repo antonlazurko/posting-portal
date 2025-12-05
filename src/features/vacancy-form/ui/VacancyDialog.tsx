@@ -4,6 +4,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -72,6 +73,7 @@ export const VacancyDialog = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    console.log('Submitting form data:', formData);
     try {
       await onSave(formData);
       onOpenChange(false);
@@ -91,6 +93,13 @@ export const VacancyDialog = ({
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>
+            {mode === 'create'
+              ? 'Fill in the details to create a new vacancy.'
+              : mode === 'edit'
+                ? 'Modify the details of the existing vacancy.'
+                : 'View the details of the vacancy.'}
+          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
