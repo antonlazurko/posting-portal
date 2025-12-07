@@ -1,0 +1,102 @@
+{
+  "common": {
+    "loading": "Завантаження...",
+    "error": "Помилка",
+    "save": "Зберегти",
+    "cancel": "Скасувати",
+    "edit": "Редагувати",
+    "delete": "Видалити",
+    "view": "Переглянути",
+    "link": "Зв'язати",
+    "search": "Пошук",
+    "filter": "Фільтр",
+    "clear": "Очистити",
+    "apply": "Застосувати",
+    "close": "Закрити"
+  },
+  "nav": {
+    "dashboard": "Панель управління",
+    "login": "Вхід",
+    "logout": "Вихід",
+    "vacancies": "Вакансії"
+  },
+  "sidebar": {
+    "appName": "Портал публікацій",
+    "appDescription": "Управління вакансіями"
+  },
+  "login": {
+    "title": "Вхід",
+    "description": "Введіть email та пароль для доступу до порталу",
+    "email": "Email",
+    "emailPlaceholder": "m@example.com",
+    "password": "Пароль",
+    "submit": "Увійти",
+    "submitting": "Вхід...",
+    "googleSignIn": "Увійти через Google",
+    "orContinueWith": "Або продовжити з",
+    "errors": {
+      "invalidCredentials": "Невірні дані для входу",
+      "internalError": "Внутрішня помилка сервера",
+      "ssoOnly": "Цей акаунт використовує SSO. Будь ласка, увійдіть через Google."
+    }
+  },
+  "dashboard": {
+    "title": "Панель вакансій",
+    "description": "Керуйте вакансіями та їх зв'язками",
+    "newVacancy": "Нова вакансія",
+    "found": "Знайдено",
+    "vacancies": "вакансій",
+    "table": {
+      "vacancy": "Вакансія",
+      "atsInfo": "ATS Інфо",
+      "posting": "Публікація",
+      "recruiter": "Рекрутер",
+      "location": "Локація",
+      "links": "Зв'язки",
+      "linkedVacancies": "Зв'язані вакансії",
+      "noVacancies": "Вакансій не знайдено"
+    },
+    "stats": {
+      "totalVacancies": "Всього вакансій",
+      "activeCountries": "Активних країн",
+      "posted": "Опубліковано",
+      "drafts": "Чернетки"
+    }
+  },
+  "vacancy": {
+    "new": "Нова вакансія",
+    "edit": "Редагувати вакансію",
+    "view": "Переглянути вакансію",
+    "title": "Назва",
+    "atsId": "ATS ID",
+    "client": "Клієнт",
+    "project": "Конкретний проект",
+    "recruiter": "Рекрутер",
+    "atsStatus": "ATS Статус",
+    "postingStatus": "Статус публікації",
+    "country": "Країна",
+    "city": "Місто",
+    "mainJbUrl": "Посилання на вакансію",
+    "comment": "Коментар",
+    "isPosted": "Опубліковано",
+    "isRepeating": "Повторюється",
+    "isMain": "Основна вакансія",
+    "linkedVacancies": "Зв'язані вакансії"
+  },
+  "filters": {
+    "search": "Пошук",
+    "searchPlaceholder": "Пошук за назвою, ATS ID...",
+    "atsStatus": "ATS Статус",
+    "postingStatus": "Статус публікації",
+    "client": "Клієнт",
+    "recruiter": "Рекрутер",
+    "country": "Країна",
+    "city": "Місто",
+    "all": "Усі"
+  },
+  "language": {
+    "english": "English",
+    "ukrainian": "Українська",
+    "switchTo": "Перемкнути на"
+  }
+}

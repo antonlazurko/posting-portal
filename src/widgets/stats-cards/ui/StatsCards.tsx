@@ -1,11 +1,13 @@
 import { Briefcase, Globe, CheckCircle, FileEdit } from 'lucide-react';
 import { Vacancy } from '@/shared/types/vacancy';
+import { useI18n } from '@/lib/i18n-provider';
 
 interface StatsCardsProps {
   vacancies: Vacancy[];
 }
 
 export const StatsCards = ({ vacancies }: StatsCardsProps) => {
+  const { t } = useI18n();
   const totalVacancies = vacancies.length;
   const postedVacancies = vacancies.filter((v) => v.isPosted).length;
   const atsOpenVacancies = vacancies.filter((v) => v.atsStatus.name === 'Open').length;
@@ -13,28 +15,28 @@ export const StatsCards = ({ vacancies }: StatsCardsProps) => {
 
   const stats = [
     {
-      title: 'Total Vacancies',
+      title: t('dashboard.stats.totalVacancies'),
       value: totalVacancies,
       icon: Briefcase,
       color: 'text-primary',
       bgColor: 'bg-primary/10',
     },
     {
-      title: 'Posted',
+      title: t('dashboard.stats.posted'),
       value: postedVacancies,
       icon: Globe,
       color: 'text-success',
       bgColor: 'bg-success/10',
     },
     {
-      title: 'ATS Open',
+      title: t('dashboard.stats.activeCountries'),
       value: atsOpenVacancies,
       icon: CheckCircle,
       color: 'text-info',
       bgColor: 'bg-info/10',
     },
     {
-      title: 'Drafts',
+      title: t('dashboard.stats.drafts'),
       value: draftVacancies,
       icon: FileEdit,
       color: 'text-warning',

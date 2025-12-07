@@ -3,6 +3,7 @@ import './globals.css';
 import { AuthProvider } from '@/features/auth/AuthProvider';
 import { Public_Sans } from 'next/font/google';
 import type { Metadata } from 'next';
+import { I18nProvider } from '@/lib/i18n-provider';
 
 const public_sans = Public_Sans({ subsets: ['latin'] });
 
@@ -66,9 +67,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={public_sans.className}>
-        <Providers>
-          <AuthProvider>{children}</AuthProvider>
-        </Providers>
+        <I18nProvider>
+          <Providers>
+            <AuthProvider>{children}</AuthProvider>
+          </Providers>
+        </I18nProvider>
       </body>
     </html>
   );

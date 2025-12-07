@@ -14,13 +14,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/features/auth/AuthProvider';
+import { useI18n } from '@/lib/i18n-provider';
 
-const mainNavItems = [{ title: 'Dashboard', url: '/', icon: LayoutDashboard }];
+const mainNavItems = [{ title: 'nav.dashboard', url: '/', icon: LayoutDashboard }];
 
 export const AppSidebar = () => {
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
   const { user, logout } = useAuth();
+  const { t } = useI18n();
 
   return (
     <Sidebar collapsible="icon" className="border-r border-border bg-card">
@@ -31,8 +33,8 @@ export const AppSidebar = () => {
           </div>
           {!collapsed && (
             <div className="flex flex-col">
-              <span className="font-bold text-foreground">Posting Portal</span>
-              <span className="text-xs text-muted-foreground">Vacancy Management</span>
+              <span className="font-bold text-foreground">{t('sidebar.appName')}</span>
+              <span className="text-xs text-muted-foreground">{t('sidebar.appDescription')}</span>
             </div>
           )}
         </div>
@@ -42,14 +44,14 @@ export const AppSidebar = () => {
         <SidebarMenu>
           {mainNavItems.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild tooltip={item.title}>
+              <SidebarMenuButton asChild tooltip={t(item.title)}>
                 <NavLink
                   to={item.url}
                   className="flex items-center gap-3 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                   activeClassName="bg-primary/10 text-primary font-medium"
                 >
                   <item.icon className="h-5 w-5 shrink-0" />
-                  {!collapsed && <span>{item.title}</span>}
+                  {!collapsed && <span>{t(item.title)}</span>}
                 </NavLink>
               </SidebarMenuButton>
             </SidebarMenuItem>

@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { VacancyFilters as Filters } from '@/shared/types/vacancy';
+import { useI18n } from '@/lib/i18n-provider';
 
 interface VacancyFiltersProps {
   filters: Filters;
@@ -26,6 +27,7 @@ interface VacancyFiltersProps {
 }
 
 export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: VacancyFiltersProps) => {
+  const { t } = useI18n();
   const handleReset = () => {
     onFiltersChange({
       search: '',
@@ -51,7 +53,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
     <div className="bg-card border border-border rounded-xl p-5 mb-6">
       <div className="flex items-center gap-2 mb-4">
         <Filter className="h-5 w-5 text-primary" />
-        <h3 className="font-semibold text-foreground">Filters</h3>
+        <h3 className="font-semibold text-foreground">{t('filters.search')}</h3>
         {hasActiveFilters && (
           <Button
             variant="ghost"
@@ -60,7 +62,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
             className="ml-auto text-muted-foreground hover:text-foreground"
           >
             <X className="h-4 w-4 mr-1" />
-            Reset
+            {t('filters.clear')}
           </Button>
         )}
       </div>
@@ -70,7 +72,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search by title..."
+              placeholder={t('filters.searchPlaceholder')}
               value={filters.search}
               onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
               className="pl-10"
@@ -83,10 +85,12 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           onValueChange={(value: string) => onFiltersChange({ ...filters, atsStatus: value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="ATS Status" />
+            <SelectValue placeholder={t('filters.atsStatus')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All ATS Statuses</SelectItem>
+            <SelectItem value="all">
+              {t('filters.all')} {t('filters.atsStatus')}
+            </SelectItem>
             {dictionaries.atsStatuses.map((s) => (
               <SelectItem key={s.id} value={s.id}>
                 {s.name}
@@ -100,10 +104,12 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           onValueChange={(value: string) => onFiltersChange({ ...filters, postingStatus: value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Posting Status" />
+            <SelectValue placeholder={t('filters.postingStatus')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Posting Statuses</SelectItem>
+            <SelectItem value="all">
+              {t('filters.all')} {t('filters.postingStatus')}
+            </SelectItem>
             {dictionaries.postingStatuses.map((s) => (
               <SelectItem key={s.id} value={s.id}>
                 {s.name}
@@ -117,10 +123,12 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           onValueChange={(value: string) => onFiltersChange({ ...filters, clientId: value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Client" />
+            <SelectValue placeholder={t('filters.client')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Clients</SelectItem>
+            <SelectItem value="all">
+              {t('filters.all')} {t('filters.client')}
+            </SelectItem>
             {dictionaries.clients.map((c) => (
               <SelectItem key={c.id} value={c.id}>
                 {c.name}
@@ -134,10 +142,12 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           onValueChange={(value: string) => onFiltersChange({ ...filters, recruiterId: value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Recruiter" />
+            <SelectValue placeholder={t('filters.recruiter')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Recruiters</SelectItem>
+            <SelectItem value="all">
+              {t('filters.all')} {t('filters.recruiter')}
+            </SelectItem>
             {dictionaries.recruiters.map((r) => (
               <SelectItem key={r.id} value={r.id}>
                 {r.firstName} {r.lastName}
@@ -151,10 +161,12 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           onValueChange={(value: string) => onFiltersChange({ ...filters, countryId: value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Country" />
+            <SelectValue placeholder={t('filters.country')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Countries</SelectItem>
+            <SelectItem value="all">
+              {t('filters.all')} {t('filters.country')}
+            </SelectItem>
             {dictionaries.countries.map((c) => (
               <SelectItem key={c.id} value={c.id}>
                 {c.name}
@@ -168,10 +180,12 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
           onValueChange={(value: string) => onFiltersChange({ ...filters, cityId: value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="City" />
+            <SelectValue placeholder={t('filters.city')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Cities</SelectItem>
+            <SelectItem value="all">
+              {t('filters.all')} {t('filters.city')}
+            </SelectItem>
             {dictionaries.cities.map((c) => (
               <SelectItem key={c.id} value={c.id}>
                 {c.name}

@@ -1,0 +1,102 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "link": "Link",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "apply": "Apply",
+    "close": "Close"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "logout": "Logout",
+    "vacancies": "Vacancies"
+  },
+  "sidebar": {
+    "appName": "Posting Portal",
+    "appDescription": "Vacancy Management"
+  },
+  "login": {
+    "title": "Login",
+    "description": "Enter your email and password to access the portal",
+    "email": "Email",
+    "emailPlaceholder": "m@example.com",
+    "password": "Password",
+    "submit": "Login",
+    "submitting": "Logging in...",
+    "googleSignIn": "Sign in with Google",
+    "orContinueWith": "Or continue with",
+    "errors": {
+      "invalidCredentials": "Invalid credentials",
+      "internalError": "Internal server error",
+      "ssoOnly": "This account uses SSO. Please sign in with Google."
+    }
+  },
+  "dashboard": {
+    "title": "Vacancy Dashboard",
+    "description": "Manage vacancies and their relationships",
+    "newVacancy": "New Vacancy",
+    "found": "Found",
+    "vacancies": "vacancies",
+    "table": {
+      "vacancy": "Vacancy",
+      "atsInfo": "ATS Info",
+      "posting": "Posting",
+      "recruiter": "Recruiter",
+      "location": "Location",
+      "links": "Links",
+      "linkedVacancies": "Linked vacancies",
+      "noVacancies": "No vacancies found"
+    },
+    "stats": {
+      "totalVacancies": "Total Vacancies",
+      "activeCountries": "Active Countries",
+      "posted": "Posted",
+      "drafts": "Drafts"
+    }
+  },
+  "vacancy": {
+    "new": "New Vacancy",
+    "edit": "Edit Vacancy",
+    "view": "View Vacancy",
+    "title": "Title",
+    "atsId": "ATS ID",
+    "client": "Client",
+    "project": "Specific Project",
+    "recruiter": "Recruiter",
+    "atsStatus": "ATS Status",
+    "postingStatus": "Posting Status",
+    "country": "Country",
+    "city": "City",
+    "mainJbUrl": "Main Job Board URL",
+    "comment": "Comment",
+    "isPosted": "Posted",
+    "isRepeating": "Repeating",
+    "isMain": "Main Vacancy",
+    "linkedVacancies": "Linked Vacancies"
+  },
+  "filters": {
+    "search": "Search",
+    "searchPlaceholder": "Search by title, ATS ID...",
+    "atsStatus": "ATS Status",
+    "postingStatus": "Posting Status",
+    "client": "Client",
+    "recruiter": "Recruiter",
+    "country": "Country",
+    "city": "City",
+    "all": "All"
+  },
+  "language": {
+    "english": "English",
+    "ukrainian": "Українська",
+    "switchTo": "Switch to"
+  }
+}

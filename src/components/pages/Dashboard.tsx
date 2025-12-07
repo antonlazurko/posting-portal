@@ -18,6 +18,8 @@ import {
   updateVacancy,
 } from '@/shared/api/vacancies';
 import { useAuth } from '@/features/auth/AuthProvider';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { useI18n } from '@/lib/i18n-provider';
 
 const initialFilters: Filters = {
   search: '',
@@ -49,6 +51,7 @@ export const Dashboard = () => {
 
   const { user } = useAuth();
   const isRecruiter = user?.role === 'hr-recruiter';
+  const { t } = useI18n();
 
   const loadVacancies = useCallback(async () => {
     try {
@@ -128,18 +131,19 @@ export const Dashboard = () => {
           <div className="flex items-center gap-4">
             <SidebarTrigger className="lg:hidden" />
             <div>
-              <h1 className="text-xl font-bold text-foreground">Vacancy Dashboard</h1>
-              <p className="text-sm text-muted-foreground">
-                Manage vacancies and their relationships
-              </p>
+              <h1 className="text-xl font-bold text-foreground">{t('dashboard.title')}</h1>
+              <p className="text-sm text-muted-foreground">{t('dashboard.description')}</p>
             </div>
           </div>
-          {isRecruiter && (
-            <Button onClick={handleCreate}>
-              <Plus className="h-4 w-4 mr-2" />
-              New Vacancy
-            </Button>
-          )}
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher />
+            {isRecruiter && (
+              <Button onClick={handleCreate}>
+                <Plus className="h-4 w-4 mr-2" />
+                {t('dashboard.newVacancy')}
+              </Button>
+            )}
+          </div>
         </div>
       </header>
 
@@ -152,7 +156,9 @@ export const Dashboard = () => {
         />
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm text-muted-foreground">
-            Found: <span className="font-medium text-foreground">{vacancies.length}</span> vacancies
+            {t('dashboard.found')}:{' '}
+            <span className="font-medium text-foreground">{vacancies.length}</span>{' '}
+            {t('dashboard.vacancies')}
           </p>
         </div>
         <VacancyTable

@@ -20,6 +20,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Vacancy } from '@/shared/types/vacancy';
 import { format } from 'date-fns';
+import { useI18n } from '@/lib/i18n-provider';
 
 interface VacancyTableProps {
   vacancies: Vacancy[];
@@ -38,6 +39,7 @@ export const VacancyTable = ({
   onEdit,
   isRecruiter = false, // Default to false
 }: VacancyTableProps) => {
+  const { t } = useI18n();
   const getLinkedVacancyNames = (linkedIds: string[] | null) => {
     if (!linkedIds) return [];
     return linkedIds.map((id) => allVacancies.find((v) => v.id === id)?.title).filter(Boolean);
@@ -52,12 +54,14 @@ export const VacancyTable = ({
       <Table>
         <TableHeader>
           <TableRow className="bg-muted/50 hover:bg-muted/50">
-            <TableHead className="font-semibold">Vacancy</TableHead>
-            <TableHead className="font-semibold">ATS Info</TableHead>
-            <TableHead className="font-semibold">Posting</TableHead>
-            <TableHead className="font-semibold">Recruiter</TableHead>
-            <TableHead className="font-semibold">Location</TableHead>
-            <TableHead className="font-semibold text-center">Links</TableHead>
+            <TableHead className="font-semibold">{t('dashboard.table.vacancy')}</TableHead>
+            <TableHead className="font-semibold">{t('dashboard.table.atsInfo')}</TableHead>
+            <TableHead className="font-semibold">{t('dashboard.table.posting')}</TableHead>
+            <TableHead className="font-semibold">{t('dashboard.table.recruiter')}</TableHead>
+            <TableHead className="font-semibold">{t('dashboard.table.location')}</TableHead>
+            <TableHead className="font-semibold text-center">
+              {t('dashboard.table.links')}
+            </TableHead>
             <TableHead className="font-semibold w-[50px]"></TableHead>
           </TableRow>
         </TableHeader>
@@ -65,7 +69,7 @@ export const VacancyTable = ({
           {vacancies.length === 0 ? (
             <TableRow>
               <TableCell colSpan={7} className="h-32 text-center text-muted-foreground">
-                No vacancies found
+                {t('dashboard.table.noVacancies')}
               </TableCell>
             </TableRow>
           ) : (
@@ -156,7 +160,9 @@ export const VacancyTable = ({
                               </Button>
                             </TooltipTrigger>
                             <TooltipContent side="top" className="max-w-[200px]">
-                              <p className="font-medium mb-1">Linked vacancies:</p>
+                              <p className="font-medium mb-1">
+                                {t('dashboard.table.linkedVacancies')}:
+                              </p>
                               <ul className="text-xs space-y-0.5">
                                 {linkedNames.map((name, i) => (
                                   <li key={i}>• {name}</li>
@@ -172,7 +178,7 @@ export const VacancyTable = ({
                             className="gap-1 text-muted-foreground hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"
                           >
                             <Link2 className="h-4 w-4" />
-                            Link
+                            {t('common.link')}
                           </Button>
                         )}
                       </>
@@ -188,17 +194,17 @@ export const VacancyTable = ({
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => onView(vacancy)}>
                           <Eye className="h-4 w-4 mr-2" />
-                          View
+                          {t('common.view')}
                         </DropdownMenuItem>
                         {isRecruiter && (
                           <>
                             <DropdownMenuItem onClick={() => onEdit(vacancy)}>
                               <Pencil className="h-4 w-4 mr-2" />
-                              Edit
+                              {t('common.edit')}
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => onLinkClick(vacancy)}>
                               <Link2 className="h-4 w-4 mr-2" />
-                              Link
+                              {t('common.link')}
                             </DropdownMenuItem>
                           </>
                         )}
