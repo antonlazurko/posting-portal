@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+export const runtime = 'nodejs';
 
-const prisma = new PrismaClient();
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
 export async function GET() {
   try {
@@ -15,14 +15,17 @@ export async function GET() {
         prisma.city.findMany(),
       ]);
 
-    return NextResponse.json({
-      clients,
-      recruiters,
-      atsStatuses,
-      postingStatuses,
-      countries,
-      cities,
-    });
+    // Безопасная сериализация
+    const safeData = {
+      clients: JSON.parse(JSON.stringify(clients)),
+      recruiters: JSON.parse(JSON.stringify(recruiters)),
+      atsStatuses: JSON.parse(JSON.stringify(atsStatuses)),
+      postingStatuses: JSON.parse(JSON.stringify(postingStatuses)),
+      countries: JSON.parse(JSON.stringify(countries)),
+      cities: JSON.parse(JSON.stringify(cities)),
+    };
+
+    return NextResponse.json(safeData);
   } catch (error) {
     console.error('Error fetching dictionaries:', error);
     return NextResponse.json({ error: 'Failed to fetch dictionaries' }, { status: 500 });
