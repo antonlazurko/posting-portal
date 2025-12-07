@@ -58,7 +58,7 @@ model User {
   firstName String
   lastName  String
   email     String    @unique
-  password  String
+  password  String?
   role      String    @default("user") // "user" | "hr-recruiter"
   avatarUrl String?
   isActive  Boolean   @default(true)

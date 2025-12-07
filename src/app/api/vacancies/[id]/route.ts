@@ -7,7 +7,6 @@ export async function PATCH(request: Request, { params }: { params: { id: string
   const id = params.id;
   try {
     const body = await request.json();
-    console.log('PATCH body:', body);
 
     const {
       title,
@@ -26,24 +25,6 @@ export async function PATCH(request: Request, { params }: { params: { id: string
       isMain,
       linkedIds,
     } = body;
-
-    console.log('Updating vacancy with:', {
-      title,
-      atsId,
-      clientId,
-      specificProject,
-      recruiterId,
-      atsStatusId,
-      countryId,
-      cityId,
-      postingStatusId,
-      mainJbUrl,
-      comment,
-      isPosted,
-      isRepeating,
-      isMain,
-      linkedIds,
-    });
 
     const updateData: any = {
       title,
@@ -81,8 +62,6 @@ export async function PATCH(request: Request, { params }: { params: { id: string
         linkedTo: { select: { id: true } },
       },
     });
-
-    console.log('Prisma updated vacancy:', updatedVacancy);
 
     const transformedVacancy = {
       ...updatedVacancy,

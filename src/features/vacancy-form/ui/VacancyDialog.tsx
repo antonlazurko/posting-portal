@@ -73,7 +73,6 @@ export const VacancyDialog = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    console.log('Submitting form data:', formData);
     try {
       await onSave(formData);
       onOpenChange(false);

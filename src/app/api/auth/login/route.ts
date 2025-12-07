@@ -20,6 +20,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
+    if (!user.password) {
+      return NextResponse.json(
+        { error: 'This account uses SSO. Please sign in with Google.' },
+        { status: 401 }
+      );
+    }
+
     const isValid = await compare(password, user.password);
 
     if (!isValid) {

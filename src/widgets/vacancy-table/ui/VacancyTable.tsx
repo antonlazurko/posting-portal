@@ -27,6 +27,7 @@ interface VacancyTableProps {
   onLinkClick: (vacancy: Vacancy) => void;
   onView: (vacancy: Vacancy) => void;
   onEdit: (vacancy: Vacancy) => void;
+  isRecruiter?: boolean; // Add role check prop
 }
 
 export const VacancyTable = ({
@@ -35,6 +36,7 @@ export const VacancyTable = ({
   onLinkClick,
   onView,
   onEdit,
+  isRecruiter = false, // Default to false
 }: VacancyTableProps) => {
   const getLinkedVacancyNames = (linkedIds: string[] | null) => {
     if (!linkedIds) return [];
@@ -138,38 +140,42 @@ export const VacancyTable = ({
                     </div>
                   </TableCell>
                   <TableCell className="text-center">
-                    {linkedNames.length > 0 ? (
-                      <Tooltip>
-                        <TooltipTrigger asChild>
+                    {isRecruiter && (
+                      <>
+                        {linkedNames.length > 0 ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => onLinkClick(vacancy)}
+                                className="gap-1 text-primary hover:text-primary"
+                              >
+                                <Link2 className="h-4 w-4" />
+                                {linkedNames.length}
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent side="top" className="max-w-[200px]">
+                              <p className="font-medium mb-1">Linked vacancies:</p>
+                              <ul className="text-xs space-y-0.5">
+                                {linkedNames.map((name, i) => (
+                                  <li key={i}>• {name}</li>
+                                ))}
+                              </ul>
+                            </TooltipContent>
+                          </Tooltip>
+                        ) : (
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => onLinkClick(vacancy)}
-                            className="gap-1 text-primary hover:text-primary"
+                            className="gap-1 text-muted-foreground hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"
                           >
                             <Link2 className="h-4 w-4" />
-                            {linkedNames.length}
+                            Link
                           </Button>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" className="max-w-[200px]">
-                          <p className="font-medium mb-1">Linked vacancies:</p>
-                          <ul className="text-xs space-y-0.5">
-                            {linkedNames.map((name, i) => (
-                              <li key={i}>• {name}</li>
-                            ))}
-                          </ul>
-                        </TooltipContent>
-                      </Tooltip>
-                    ) : (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => onLinkClick(vacancy)}
-                        className="gap-1 text-muted-foreground hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        <Link2 className="h-4 w-4" />
-                        Link
-                      </Button>
+                        )}
+                      </>
                     )}
                   </TableCell>
                   <TableCell>
@@ -184,14 +190,18 @@ export const VacancyTable = ({
                           <Eye className="h-4 w-4 mr-2" />
                           View
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => onEdit(vacancy)}>
-                          <Pencil className="h-4 w-4 mr-2" />
-                          Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => onLinkClick(vacancy)}>
-                          <Link2 className="h-4 w-4 mr-2" />
-                          Link
-                        </DropdownMenuItem>
+                        {isRecruiter && (
+                          <>
+                            <DropdownMenuItem onClick={() => onEdit(vacancy)}>
+                              <Pencil className="h-4 w-4 mr-2" />
+                              Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => onLinkClick(vacancy)}>
+                              <Link2 className="h-4 w-4 mr-2" />
+                              Link
+                            </DropdownMenuItem>
+                          </>
+                        )}
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
