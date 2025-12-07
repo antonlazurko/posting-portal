@@ -1,9 +1,10 @@
+export const runtime = 'nodejs';
+
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import { compare } from 'bcryptjs';
 import { SignJWT } from 'jose';
+import { prisma } from '@/lib/prisma';
 
-const prisma = new PrismaClient();
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'super-secret-key');
 
 export async function POST(request: Request) {
