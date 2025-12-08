@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 export async function PATCH(request: Request, { params }: { params: { id: string } }) {
-  const id = params.id;
+  const unwrappedParams = await params;
+  const id = unwrappedParams.id;
+  if (!id) {
+    return NextResponse.json({ error: 'ID is required' }, { status: 400 });
+  }
   try {
     const body = await request.json();
 

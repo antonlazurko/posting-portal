@@ -9,7 +9,7 @@ const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'super-sec
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const GOOGLE_REDIRECT_URI =
-  process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3001/api/auth/google/callback';
+  process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/api/auth/google/callback';
 
 interface GoogleTokenResponse {
   access_token: string;
@@ -32,7 +32,7 @@ interface GoogleUserInfo {
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
-    const origin = url.origin; // Gets the dynamic origin (http://localhost:3001, etc.)
+    const origin = url.origin; // Gets the dynamic origin (http://localhost:3000, etc.)
     const { searchParams } = url;
     const code = searchParams.get('code');
     const error = searchParams.get('error');
@@ -129,7 +129,7 @@ export async function GET(request: Request) {
     return response;
   } catch (error) {
     console.error('Google OAuth callback error:', error);
-    // Try to extract origin from error context, fallback to localhost:3001
-    return NextResponse.redirect('http://localhost:3001/login?error=oauth_failed');
+    // Try to extract origin from error context, fallback to localhost:3000
+    return NextResponse.redirect('http://localhost:3000/login?error=oauth_failed');
   }
 }

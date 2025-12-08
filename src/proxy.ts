@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { cookies } from 'next/headers';
 import { jwtVerify } from 'jose';
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'super-secret-key');
 
-export async function middleware(request: NextRequest) {
-  const token = request.cookies.get('token')?.value;
+export async function proxy(request: NextRequest) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token')?.value;
   const isLoginPage = request.nextUrl.pathname === '/login';
   const isPublicPath = request.nextUrl.pathname.startsWith('/api/auth') || isLoginPage;
 
