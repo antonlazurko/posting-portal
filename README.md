@@ -1,73 +1,233 @@
-# Welcome to your Lovable project
+# Posting Portal
 
-## Project info
+A vacancy management portal with ATS system integration. The application allows recruiters to manage vacancies, track their posting status, and synchronize data across various platforms.
 
-**URL**: https://lovable.dev/projects/09a33d25-82a1-4a86-9bcf-655bcbca03d0
+## 🎯 Key Features
 
-## How can I edit this code?
+- **Vacancy Management** - create, edit, and delete vacancies
+- **Status Tracking** - track posting status of vacancies across various platforms
+- **ATS Integration** - synchronization with candidate management systems
+- **Multilingual Support** - English and Ukrainian language support
+- **Authentication** - authorization via Google
+- **Search & Filtering** - powerful search and filtering capabilities
+- **Dark Theme** - support for light and dark themes
+- **Responsive Design** - optimized for mobile devices
 
-There are several ways of editing your application.
+## 🛠️ Tech Stack
 
-**Use Lovable**
+### Frontend
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/09a33d25-82a1-4a86-9bcf-655bcbca03d0) and start prompting.
+- **Next.js 14.2** - React framework with SSR
+- **React 18.3** - UI library
+- **TypeScript** - static typing
+- **TailwindCSS** - utility-first CSS framework
+- **Radix UI** - UI components library
+- **React Hook Form** - form management
+- **Zod** - data validation
+- **Next-intl** - internationalization
+- **React Query** - server state management
+- **Recharts** - data visualization
 
-Changes made via Lovable will be committed automatically to this repo.
+### Backend
 
-**Use your preferred IDE**
+- **Next.js API Routes** - REST API endpoints
+- **Prisma ORM** - database management
+- **PostgreSQL** - relational database
+- **JWT** - authentication
+- **bcryptjs** - password hashing
+- **jose** - JWT handling
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### DevOps & Quality
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **ESLint** - code analysis
+- **Prettier** - code formatting
+- **Husky** - Git hooks
+- **Lint-staged** - staged files checking
 
-Follow these steps:
+## 📋 Requirements
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- **Node.js** >= 18
+- **npm** or **yarn**
+- **PostgreSQL** >= 12
+- **Git**
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🚀 Getting Started
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 1. Clone the Repository
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+git clone https://github.com/antonlazurko/posting-portal.git
+cd posting-portal
 ```
 
-**Edit a file directly in GitHub**
+### 2. Install Dependencies
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+npm install
+# or
+yarn install
+```
 
-**Use GitHub Codespaces**
+### 3. Configure Environment Variables
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Create a `.env.local` file in the project root:
 
-## What technologies are used for this project?
+```env
+# Database
+DATABASE_URL="postgresql://user:password@localhost:5432/posting_portal"
 
-This project is built with:
+# Google OAuth
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_CALLBACK_URL=http://localhost:3000/api/auth/google/callback
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+# JWT
+JWT_SECRET=your_jwt_secret_key
 
-## How can I deploy this project?
+# Application
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
 
-Simply open [Lovable](https://lovable.dev/projects/09a33d25-82a1-4a86-9bcf-655bcbca03d0) and click on Share -> Publish.
+### 4. Initialize the Database
 
-## Can I connect a custom domain to my Lovable project?
+```bash
+# Run migrations
+npx prisma migrate dev
 
-Yes, you can!
+# Seed database with initial data (optional)
+npx prisma db seed
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### 5. Start the Application
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```bash
+# Development mode
+npm run dev
+
+# Application will be available at http://localhost:3000
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── api/               # API endpoints
+│   │   ├── auth/          # Authentication
+│   │   ├── vacancies/     # Vacancies API
+│   │   └── dictionaries/  # Reference data
+│   ├── login/             # Login page
+│   ├── page.tsx           # Home page
+│   └── layout.tsx         # Root layout
+├── components/            # Reusable components
+│   ├── pages/            # Page components
+│   └── ui/               # UI components (Radix UI)
+├── entities/              # Business entities
+│   └── vacancy/          # Vacancy models and types
+├── features/              # Application features
+│   ├── auth/             # Authentication
+│   ├── vacancy-filters/  # Vacancy filtering
+│   ├── vacancy-form/     # Vacancy form
+│   └── vacancy-link/     # Vacancy linking
+├── hooks/                 # React hooks
+├── layouts/               # Layout components
+├── lib/                   # Utilities and configs
+├── shared/                # Shared code
+│   ├── api/              # API client functions
+│   └── types/            # TypeScript types
+└── widgets/               # Complex components
+    ├── sidebar/          # Sidebar
+    ├── stats-cards/      # Statistics cards
+    └── vacancy-table/    # Vacancies table
+
+prisma/
+├── schema.prisma         # Database schema
+├── migrations/           # Database migrations
+└── seed.ts              # Database seeding script
+```
+
+## 🔧 Available Commands
+
+```bash
+# Development
+npm run dev           # Start development server
+
+# Production
+npm run build         # Build the project
+npm run start         # Start production server
+
+# Quality Control
+npm run lint          # Run ESLint
+
+# Database
+npx prisma studio    # Open Prisma Studio
+npx prisma migrate   # Create a migration
+npx prisma db seed   # Seed the database
+```
+
+## 🗄️ Data Model
+
+### Main Entities
+
+- **Vacancy** - job vacancy/position
+- **User** - user/recruiter
+- **Client** - client/company
+- **AtsStatus** - ATS system status
+- **PostingStatus** - posting status
+- **Country** - country
+- **City** - city
+
+## 🔐 Authentication
+
+The application uses Google OAuth 2.0 for authentication. Users can sign in with their Google account. Sessions are managed using JWT tokens.
+
+## 🌍 Internationalization
+
+The application supports multiple languages:
+
+- **en** - English
+- **uk** - Ukrainian
+
+Translations are stored in the `messages/` directory.
+
+## 🎨 Themes
+
+The application supports light and dark themes. Theming is managed via `next-themes`.
+
+## 📦 Deployment
+
+### Heroku / Railway / Vercel
+
+1. Configure environment variables in your platform
+2. Run database migrations
+3. Deploy the application
+
+```bash
+git push heroku main
+# or use the appropriate command for your platform
+```
+
+## 🤝 Contributing
+
+1. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+2. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+3. Push to the branch (`git push origin feature/AmazingFeature`)
+4. Open a Pull Request
+
+## 📝 License
+
+This project is private.
+
+## 👤 Author
+
+**Anton Lazurko**
+
+- GitHub: [@antonlazurko](https://github.com/antonlazurko)
+
+## 📧 Contact
+
+For questions and suggestions, please contact the author via GitHub.
+
+---
+
+**Last Updated:** December 2025

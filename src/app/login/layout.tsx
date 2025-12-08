@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Login',
   description:
-    'Sign in to Lovable Posting Portal. Access your vacancy management dashboard and recruitment tools.',
+    'Sign in to Posting Portal. Access your vacancy management dashboard and recruitment tools.',
   robots: {
     index: false, // Don't index login page for privacy
     follow: false,

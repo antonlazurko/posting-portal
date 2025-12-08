@@ -1,16 +1,16 @@
 import { Providers } from './providers';
 import './globals.css';
 import { AuthProvider } from '@/features/auth/AuthProvider';
-import { Public_Sans } from 'next/font/google';
+import { Manrope } from 'next/font/google';
 import type { Metadata } from 'next';
 import { I18nProvider } from '@/lib/i18n-provider';
 
-const public_sans = Public_Sans({ subsets: ['latin'] });
+const manrope = Manrope({ subsets: ['latin', 'cyrillic'], variable: '--font-manrope' });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Lovable Posting Portal - Vacancy Management System',
-    template: '%s | Lovable Posting Portal',
+    default: 'Posting Portal - Vacancy Management System',
+    template: 'Posting Portal',
   },
   description:
     'Comprehensive vacancy management system for HR recruiters. Track job postings, manage ATS statuses, and streamline your recruitment process.',
@@ -22,22 +22,22 @@ export const metadata: Metadata = {
     'ats system',
     'hiring platform',
   ],
-  authors: [{ name: 'Lovable Team' }],
-  creator: 'Lovable',
-  publisher: 'Lovable',
+  authors: [{ name: 'Posting Portal Team' }],
+  creator: 'Posting Portal',
+  publisher: 'Posting Portal',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    title: 'Lovable Posting Portal - Vacancy Management System',
+    title: 'Posting Portal - Vacancy Management System',
     description:
       'Comprehensive vacancy management system for HR recruiters. Track job postings, manage ATS statuses, and streamline your recruitment process.',
-    siteName: 'Lovable Posting Portal',
+    siteName: 'Posting Portal',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Lovable Posting Portal - Vacancy Management System',
+    title: 'Posting Portal - Vacancy Management System',
     description:
       'Comprehensive vacancy management system for HR recruiters. Track job postings, manage ATS statuses, and streamline your recruitment process.',
   },
@@ -54,8 +54,7 @@ export const metadata: Metadata = {
   },
   verification: {
     // Add your verification codes when available
-    // google: 'your-google-verification-code',
-    // yandex: 'your-yandex-verification-code',
+    // google: 'your-google-verification-code'
   },
 };
 
@@ -66,7 +65,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={public_sans.className}>
+      <body className={manrope.className}>
         <I18nProvider>
           <Providers>
             <AuthProvider>{children}</AuthProvider>
