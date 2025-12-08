@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Lovable Team' }],
   creator: 'Lovable',
   publisher: 'Lovable',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
