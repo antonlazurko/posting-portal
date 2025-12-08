@@ -85,6 +85,7 @@
   },
   "filters": {
     "search": "Search",
+    "clear": "Clear",
     "searchPlaceholder": "Search by title, ATS ID...",
     "atsStatus": "ATS Status",
     "postingStatus": "Posting Status",

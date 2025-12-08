@@ -85,6 +85,7 @@
   },
   "filters": {
     "search": "Пошук",
+    "clear": "Очистити",
     "searchPlaceholder": "Пошук за назвою, ATS ID...",
     "atsStatus": "ATS Статус",
     "postingStatus": "Статус публікації",
