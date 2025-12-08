@@ -12,21 +12,15 @@ import {
 import { Button } from '@/components/ui/button';
 import { VacancyFilters as Filters } from '@/shared/types/vacancy';
 import { useI18n } from '@/lib/i18n-provider';
+import { useGetVacancyFilters } from '@/features/vacancy-filters/model/vacancy.hooks';
 
 interface VacancyFiltersProps {
   filters: Filters;
   onFiltersChange: (filters: Filters) => void;
-  dictionaries: {
-    clients: any[];
-    recruiters: any[];
-    atsStatuses: any[];
-    postingStatuses: any[];
-    countries: any[];
-    cities: any[];
-  };
 }
 
-export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: VacancyFiltersProps) => {
+export const VacancyFilters = ({ filters, onFiltersChange }: VacancyFiltersProps) => {
+  const { data: dictionaries, isLoading } = useGetVacancyFilters();
   const { t } = useI18n();
   const handleReset = () => {
     onFiltersChange({
@@ -83,6 +77,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
         <Select
           value={filters.atsStatus}
           onValueChange={(value: string) => onFiltersChange({ ...filters, atsStatus: value })}
+          disabled={isLoading}
         >
           <SelectTrigger>
             <SelectValue placeholder={t('filters.atsStatus')} />
@@ -91,7 +86,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
             <SelectItem value="all">
               {t('filters.all')} {t('filters.atsStatus')}
             </SelectItem>
-            {dictionaries.atsStatuses.map((s) => (
+            {dictionaries?.atsStatuses.map((s) => (
               <SelectItem key={s.id} value={s.id}>
                 {s.name}
               </SelectItem>
@@ -102,6 +97,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
         <Select
           value={filters.postingStatus}
           onValueChange={(value: string) => onFiltersChange({ ...filters, postingStatus: value })}
+          disabled={isLoading}
         >
           <SelectTrigger>
             <SelectValue placeholder={t('filters.postingStatus')} />
@@ -110,7 +106,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
             <SelectItem value="all">
               {t('filters.all')} {t('filters.postingStatus')}
             </SelectItem>
-            {dictionaries.postingStatuses.map((s) => (
+            {dictionaries?.postingStatuses.map((s) => (
               <SelectItem key={s.id} value={s.id}>
                 {s.name}
               </SelectItem>
@@ -121,6 +117,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
         <Select
           value={filters.clientId}
           onValueChange={(value: string) => onFiltersChange({ ...filters, clientId: value })}
+          disabled={isLoading}
         >
           <SelectTrigger>
             <SelectValue placeholder={t('filters.client')} />
@@ -129,7 +126,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
             <SelectItem value="all">
               {t('filters.all')} {t('filters.client')}
             </SelectItem>
-            {dictionaries.clients.map((c) => (
+            {dictionaries?.clients.map((c) => (
               <SelectItem key={c.id} value={c.id}>
                 {c.name}
               </SelectItem>
@@ -140,6 +137,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
         <Select
           value={filters.recruiterId}
           onValueChange={(value: string) => onFiltersChange({ ...filters, recruiterId: value })}
+          disabled={isLoading}
         >
           <SelectTrigger>
             <SelectValue placeholder={t('filters.recruiter')} />
@@ -148,7 +146,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
             <SelectItem value="all">
               {t('filters.all')} {t('filters.recruiter')}
             </SelectItem>
-            {dictionaries.recruiters.map((r) => (
+            {dictionaries?.recruiters.map((r) => (
               <SelectItem key={r.id} value={r.id}>
                 {r.firstName} {r.lastName}
               </SelectItem>
@@ -159,6 +157,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
         <Select
           value={filters.countryId}
           onValueChange={(value: string) => onFiltersChange({ ...filters, countryId: value })}
+          disabled={isLoading}
         >
           <SelectTrigger>
             <SelectValue placeholder={t('filters.country')} />
@@ -167,7 +166,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
             <SelectItem value="all">
               {t('filters.all')} {t('filters.country')}
             </SelectItem>
-            {dictionaries.countries.map((c) => (
+            {dictionaries?.countries.map((c) => (
               <SelectItem key={c.id} value={c.id}>
                 {c.name}
               </SelectItem>
@@ -178,6 +177,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
         <Select
           value={filters.cityId}
           onValueChange={(value: string) => onFiltersChange({ ...filters, cityId: value })}
+          disabled={isLoading}
         >
           <SelectTrigger>
             <SelectValue placeholder={t('filters.city')} />
@@ -186,7 +186,7 @@ export const VacancyFilters = ({ filters, onFiltersChange, dictionaries }: Vacan
             <SelectItem value="all">
               {t('filters.all')} {t('filters.city')}
             </SelectItem>
-            {dictionaries.cities.map((c) => (
+            {dictionaries?.cities.map((c) => (
               <SelectItem key={c.id} value={c.id}>
                 {c.name}
               </SelectItem>

@@ -20,6 +20,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import { Vacancy } from '@/shared/types/vacancy';
+import { useGetVacancyFilters } from '@/features/vacancy-filters/model/vacancy.hooks';
 
 interface VacancyDialogProps {
   open: boolean;
@@ -27,14 +28,6 @@ interface VacancyDialogProps {
   mode: 'create' | 'edit' | 'view';
   vacancy?: Vacancy | null;
   onSave: (data: Partial<Vacancy>) => Promise<void>;
-  dictionaries: {
-    clients: any[];
-    recruiters: any[];
-    atsStatuses: any[];
-    postingStatuses: any[];
-    countries: any[];
-    cities: any[];
-  };
 }
 
 export const VacancyDialog = ({
@@ -43,10 +36,10 @@ export const VacancyDialog = ({
   mode,
   vacancy,
   onSave,
-  dictionaries,
 }: VacancyDialogProps) => {
   const [formData, setFormData] = useState<Partial<Vacancy>>({});
   const [loading, setLoading] = useState(false);
+  const { data: dictionaries, isLoading } = useGetVacancyFilters();
 
   useEffect(() => {
     if (open) {
@@ -131,13 +124,13 @@ export const VacancyDialog = ({
               <Select
                 value={formData.clientId}
                 onValueChange={(value) => setFormData({ ...formData, clientId: value })}
-                disabled={isView}
+                disabled={isView || isLoading}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select client" />
                 </SelectTrigger>
                 <SelectContent>
-                  {dictionaries.clients.map((c) => (
+                  {dictionaries?.clients.map((c) => (
                     <SelectItem key={c.id} value={c.id}>
                       {c.name}
                     </SelectItem>
@@ -151,7 +144,7 @@ export const VacancyDialog = ({
                 id="project"
                 value={formData.specificProject || ''}
                 onChange={(e) => setFormData({ ...formData, specificProject: e.target.value })}
-                disabled={isView}
+                disabled={isView || isLoading}
                 required
               />
             </div>
@@ -163,13 +156,13 @@ export const VacancyDialog = ({
               <Select
                 value={formData.recruiterId}
                 onValueChange={(value) => setFormData({ ...formData, recruiterId: value })}
-                disabled={isView}
+                disabled={isView || isLoading}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select recruiter" />
                 </SelectTrigger>
                 <SelectContent>
-                  {dictionaries.recruiters.map((r) => (
+                  {dictionaries?.recruiters.map((r) => (
                     <SelectItem key={r.id} value={r.id}>
                       {r.firstName} {r.lastName}
                     </SelectItem>
@@ -182,13 +175,13 @@ export const VacancyDialog = ({
               <Select
                 value={formData.atsStatusId}
                 onValueChange={(value) => setFormData({ ...formData, atsStatusId: value })}
-                disabled={isView}
+                disabled={isView || isLoading}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select status" />
                 </SelectTrigger>
                 <SelectContent>
-                  {dictionaries.atsStatuses.map((s) => (
+                  {dictionaries?.atsStatuses.map((s) => (
                     <SelectItem key={s.id} value={s.id}>
                       {s.name}
                     </SelectItem>
@@ -204,13 +197,13 @@ export const VacancyDialog = ({
               <Select
                 value={formData.countryId}
                 onValueChange={(value) => setFormData({ ...formData, countryId: value })}
-                disabled={isView}
+                disabled={isView || isLoading}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select country" />
                 </SelectTrigger>
                 <SelectContent>
-                  {dictionaries.countries.map((c) => (
+                  {dictionaries?.countries.map((c) => (
                     <SelectItem key={c.id} value={c.id}>
                       {c.name}
                     </SelectItem>
@@ -223,13 +216,13 @@ export const VacancyDialog = ({
               <Select
                 value={formData.cityId}
                 onValueChange={(value) => setFormData({ ...formData, cityId: value })}
-                disabled={isView}
+                disabled={isView || isLoading}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select city" />
                 </SelectTrigger>
                 <SelectContent>
-                  {dictionaries.cities.map((c) => (
+                  {dictionaries?.cities.map((c) => (
                     <SelectItem key={c.id} value={c.id}>
                       {c.name}
                     </SelectItem>
@@ -245,13 +238,13 @@ export const VacancyDialog = ({
               <Select
                 value={formData.postingStatusId}
                 onValueChange={(value) => setFormData({ ...formData, postingStatusId: value })}
-                disabled={isView}
+                disabled={isView || isLoading}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select status" />
                 </SelectTrigger>
                 <SelectContent>
-                  {dictionaries.postingStatuses.map((s) => (
+                  {dictionaries?.postingStatuses.map((s) => (
                     <SelectItem key={s.id} value={s.id}>
                       {s.name}
                     </SelectItem>

@@ -15,7 +15,6 @@ export async function GET() {
         prisma.city.findMany(),
       ]);
 
-    // Безопасная сериализация
     const safeData = {
       clients: JSON.parse(JSON.stringify(clients)),
       recruiters: JSON.parse(JSON.stringify(recruiters)),

@@ -13,7 +13,6 @@ import { VacancyDialog } from '@/features/vacancy-form/ui/VacancyDialog';
 import {
   fetchVacancies,
   updateVacancyLinks,
-  fetchDictionaries,
   createVacancy,
   updateVacancy,
 } from '@/shared/api/vacancies';
@@ -36,14 +35,6 @@ export const Dashboard = () => {
   const [filters, setFilters] = useState<Filters>(initialFilters);
   const [linkDialogOpen, setLinkDialogOpen] = useState(false);
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
-  const [dictionaries, setDictionaries] = useState<any>({
-    clients: [],
-    recruiters: [],
-    atsStatuses: [],
-    postingStatuses: [],
-    countries: [],
-    cities: [],
-  });
 
   // Vacancy Dialog State
   const [vacancyDialogOpen, setVacancyDialogOpen] = useState(false);
@@ -65,18 +56,6 @@ export const Dashboard = () => {
   useEffect(() => {
     loadVacancies();
   }, [loadVacancies]);
-
-  useEffect(() => {
-    const loadDictionaries = async () => {
-      try {
-        const data = await fetchDictionaries();
-        setDictionaries(data);
-      } catch (error) {
-        console.error('Failed to load dictionaries', error);
-      }
-    };
-    loadDictionaries();
-  }, []);
 
   const handleLinkClick = (vacancy: Vacancy) => {
     setSelectedVacancy(vacancy);
@@ -149,11 +128,7 @@ export const Dashboard = () => {
 
       <main className="flex-1 p-6">
         <StatsCards vacancies={vacancies} />
-        <VacancyFilters
-          filters={filters}
-          onFiltersChange={setFilters}
-          dictionaries={dictionaries}
-        />
+        <VacancyFilters filters={filters} onFiltersChange={setFilters} />
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm text-muted-foreground">
             {t('dashboard.found')}:{' '}
@@ -185,7 +160,6 @@ export const Dashboard = () => {
         mode={dialogMode}
         vacancy={selectedVacancy}
         onSave={handleSaveVacancy}
-        dictionaries={dictionaries}
       />
     </div>
   );
